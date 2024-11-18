@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipes & More</title>
+</head>
+
+<body>
+    <div class="page">
+        <header class="header">
+            <h1 class="header__title">Recipes & More</h1>
+            <p class="header__description">Your go to place to plan your perfect Thanksgiving!</p>
+            <nav class="nav">
+                <ul class="nav__links">
+                    <li>
+                        <a href="#apps" class="nav__link">Appetizers</a>
+                    </li>
+                    <li>
+                        <a href="#main" class="nav__link">Main Dishes</a>
+                    </li>
+                    <li>
+                        <a href="#desserts" class="nav__link">Desserts</a>
+                    </li>
+                    <li>
+                        <a href="#about" class="nav__link">About Us</a>
+                    </li>
+                </ul>
+            </nav>
+            <button type="button" class="add_recipe-btn">Add Recipe +</button>
+        </header>
+        <main class="content">
+            <h2 id="#apps" class="section__title">Appetizers</h2>
+            <div class="cards">
+                <ul class="cards__list">
+                    <template id="recipe-template">
+                        <li class="card">
+                            <img src="" alt="" class="recipe__image" />
+                            <h3 class="image__description"></h3>
+                        </li>
+                    </template>
+                </ul>
+
+            </div>
+            <h2 id="#main" class="section__title">Main Dishes</h2>
+            <div class="cards">
+                <ul class="cards__list">
+                    <template id="recipe-template">
+                        <li class="card">
+                            <img src="" alt="" class="recipe__image" />
+                            <h3 class="image__description"></h3>
+                        </li>
+                    </template>
+                </ul>
+
+            </div>
+            <h2 id="#desserts" class="section__title">Desserts</h2>
+            <div class="cards">
+                <ul class="cards__list">
+                    <template id="recipe-template">
+                        <li class="card">
+                            <img src="" alt="" class="recipe__image" />
+                            <h3 class="image__description"></h3>
+                        </li>
+                    </template>
+                </ul>
+
+            </div>
+            </section>
+        </main>
+        <footer id="#about" class="footer">
+            <h2 class="footer__title">About US</h2>
+            <ul class="footer__names">
+                <li class="name">Brandi McDill</li>
+                <li class="name">Rob Kelley</li>
+                <li class="name">Emma Woelk</li>
+                <li class="name"></li>
+            </ul>
+            <p class="copyright">2024 &copy; Recipes</p>
+        </footer>
+        <div class="modal" id="recipe_modal">
+            <div class="recipe__content">
+                <button type="submit" class="modal__close"></button>
+                <img src="" alt="" class="recipe__image">
+                <h2 class="modal__title"></h2>
+                <p class="recipe__instructions"></p>
+                <h2 class="drink_suggestions"></h2>
+                <h3 class="drink__header_wine">Wine</h3>
+                <p class="options"></p>
+                <h3 class="drink__header_mixed">Mixed Drinks</h3>
+                <p class="options"></p>
+                <h3 class="drink__header_non">Non-Alcoholic</h3>
+                <p class="options"></p>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
