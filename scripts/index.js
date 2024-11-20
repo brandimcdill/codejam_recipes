@@ -4,8 +4,7 @@
 const appetizerListEl = document.querySelector("#appetizer-list");
 const mainDishesListEl = document.querySelector("#main-dish-list");
 const dessertsListEl = document.querySelector("#desserts-list");
-const recipeTemplate =
-  document.querySelector("#recipe-template").content.firstElementChild;
+const recipeTemplate = document.querySelector("#recipe-template").content.firstElementChild;
 const addRecipeModal = document.querySelector("#recipe-modal");
 const addRecipeForm = addRecipeModal.querySelector("#add-recipe-form");
 const addRecipeBtn = document.querySelector("#add-recipe-btn");
@@ -14,6 +13,9 @@ const recipeImageInput = document.querySelector(".modal__input_url");
 const recipeInstructionsInput = document.querySelector(".modal__input_text");
 const recipeRadioInput = document.querySelectorAll('input[name="menuSelect"]');
 let menuChoice = "";
+const appsLink = document.querySelector("#appsLink");
+const mainDishLink = document.querySelector("#mainDishLink");
+const dessertsLink = document.querySelector("#dessertsLink");
 
 /* -------------------------------------------------------------------------- */
 /*                                  Functions                                 */
@@ -40,32 +42,14 @@ function fetchRecipeElement(recipeData) {
   const recipeElement = recipeTemplate.cloneNode(true);
   const recipeImageEl = recipeElement.querySelector(".card__image");
   const recipeTitleEl = recipeElement.querySelector(".card__title");
-  const recipeInstructionsEl =
-    recipeElement.querySelector(".card__description");
-  const recipeFooterEl = recipeElement.querySelector(
-    ".card__content_footer_text"
-  );
+  const recipeInstructionsEl = recipeElement.querySelector(".card__description");
+  const recipeFooterEl = recipeElement.querySelector(".card__content_footer_text");
   // need to use API for recipeFooterEl
 
   recipeImageEl.src = recipeData.url;
   recipeImageEl.alt = recipeData.name;
   recipeTitleEl.textContent = recipeData.name;
   recipeInstructionsEl.textContent = recipeData.description;
-  function fetchRecipeElement(recipeData) {
-    const recipeElement = recipeTemplate.cloneNode(true);
-    const recipeImageEl = recipeElement.querySelector(".card__image");
-    const recipeTitleEl = recipeElement.querySelector(".card__title");
-    const recipeInstructionsEl =
-      recipeElement.querySelector(".card__description");
-    const recipeFooterEl = recipeElement.querySelector(
-      ".card__content_footer_text"
-    );
-    // need to use API for recipeFooterEl
-
-    recipeImageEl.src = recipeData.url;
-    recipeImageEl.alt = recipeData.name;
-    recipeTitleEl.textContent = recipeData.name;
-    recipeInstructionsEl.textContent = recipeData.description;
 
     return recipeElement;
   }
@@ -101,9 +85,28 @@ function fetchRecipeElement(recipeData) {
     }
   }
 
-  /* -------------------------------------------------------------------------- */
-  /*                               Event Listeners                              */
-  /* -------------------------------------------------------------------------- */
+  function toggleContent(evt) {
+    if (evt.target.id === "appsLink") {
+        appetizerListEl.style.display = "grid";
+        mainDishesListEl.style.display = "none";
+        dessertsListEl.style.display = "none";
+    }
+    if (evt.target.id === "mainDishLink") {
+        appetizerListEl.style.display = "none";
+        mainDishesListEl.style.display = "grid";
+        dessertsListEl.style.display = "none";
+    }
+    if (evt.target.id === "dessertsLink") {
+        appetizerListEl.style.display = "none";
+        mainDishesListEl.style.display = "none";
+        dessertsListEl.style.display = "grid";
+    }
+
+  }
+
+/* -------------------------------------------------------------------------- */
+/*                               Event Listeners                              */
+/* -------------------------------------------------------------------------- */
 
   addRecipeBtn.addEventListener("click", () => openModal(addRecipeModal));
   addRecipeForm.addEventListener("submit", handleAddRecipeSubmit);
@@ -114,7 +117,7 @@ function fetchRecipeElement(recipeData) {
       if (evt.target.classList.contains("modal_opened")) {
         closeModal(modal);
       }
-      if (evt.target.classList.contains("modal__close")) {
+      if (evt.target.classList.contains("close_btn")) {
         closeModal(modal);
       }
     });
@@ -126,6 +129,10 @@ function fetchRecipeElement(recipeData) {
     });
   });
 
+  appsLink.addEventListener("click", (evt) => toggleContent(evt));
+  mainDishLink.addEventListener("click", (evt) => toggleContent(evt));
+  dessertsLink.addEventListener("click", (evt) => toggleContent(evt));
+
   /* -------------------------------------------------------------------------- */
   /*                              Initialize Recipes                              */
   /* -------------------------------------------------------------------------- */
@@ -134,12 +141,14 @@ function fetchRecipeElement(recipeData) {
     array.forEach((recipeData) => {
       renderRecipe(recipeData, wrapper);
     });
-  }
-  // callback of this function are at the bottom of the file so they may use the arrays below
+}
+// callback of this function are at the bottom of the file so they may use the arrays below
+
 
   /* -------------------------------------------------------------------------- */
   /*                                Recipes Array                               */
   /* -------------------------------------------------------------------------- */
+  // All recipes and images in the default recipe arrays are property of delish.com
   const appetizers = [
     {
       name: "Pumpkin Cheese Ball",
@@ -788,11 +797,11 @@ function fetchRecipeElement(recipeData) {
             Step 2
             Uncover pie. Pour ganache over and smooth in an even layer. Continue to freeze until chocolate is set, at least 15 minutes and up to 1 hour.
         Recipe link: https://www.delish.com/cooking/recipe-ideas/a62740022/frozen-peppermint-pattie-pie-recipe/
-        `,
-    },
-  ];
+        `
+    }
+];
+
 
   intializeRecipes(appetizers, appetizerListEl);
   intializeRecipes(mainDishes, mainDishesListEl);
   intializeRecipes(desserts, dessertsListEl);
-}
