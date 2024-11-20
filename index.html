@@ -51,7 +51,6 @@
                     <li class="name">Brandi McDill</li>
                     <li class="name">Rob Kelley</li>
                     <li class="name">Emma Woelk</li>
-                    <li class="name"></li>
                 </ul>
             </div>
             <p class="copyright">2024 &copy; Recipes</p>
@@ -60,7 +59,11 @@
         <!-- Modals -->
         <div class="modal" id="recipe-modal">
             <div class="modal__container">
-                <button type="submit" class="modal__close"></button>
+                <button type="submit" class="modal__close">
+                    <img src="./images/closebtn.png" alt="close button" class="modal__close-btn" />
+                    <!--<a href=" https://www.flaticon.com/free-icons/close-button" title="close button icons">Close button
+                        icons created by droy gambar - Flaticon</a> -->
+                </button>
                 <form class="modal__form" id="add-recipe-form" novalidate>
                     <input type="text" name="title" class="modal__input modal__input_title" placeholder="Recipe Title"
                         minlength="1" maxlength="50" required />
@@ -87,57 +90,13 @@
                     <span class="modal__radios">
                         <input type="radio" name="menuSelect" id="appetizer-radio"
                             class="modal__input modal__input_radio" value="appetizers" />
-                        <label for="appetizer-radio">Appetizer</label><br />
+                        <label for="appetizer-radio" class="radio__label">Appetizer</label><br />
                         <input type="radio" name="menuSelect" id="main-dish-radio"
                             class="modal__input modal__input_radio" value="mainDishes" />
-                        <label for="main-dish-radio">Main Dish</label><br />
+                        <label for="main-dish-radio" class="radio__label">Main Dish</label><br />
                         <input type="radio" name="menuSelect" id="dessert-radio" class="modal__input modal__input_radio"
                             value="desserts" />
-                        <label for="dessert-radio">Dessert</label><br />
-                    </span>
-                    <button class="modal__button modal__button_disabled" type="submit" disabled>
-                        Add Recipe
-                    </button>
-                </form>
-            </div>
-        </div>
-        <!-- Modals -->
-        <div class="modal" id="recipe-modal">
-            <div class="modal__container">
-                <button type="submit" class="modal__close"></button>
-                <form class="modal__form" id="add-recipe-form" novalidate>
-                    <input type="text" name="title" class="modal__input modal__input_title" placeholder="Recipe Title"
-                        minlength="1" maxlength="50" required />
-                    <span class="modal__error" id="recipe-title-error"></span>
-                    <input type="url" name="url" class="modal__input modal__input_url" placeholder="Recipe Image link"
-                        required />
-                    <span class="modal__error" id="recipe-url-error"></span>
-                    <textarea name="description" class="modal__input modal__input_text"
-                        placeholder="Recipe Instructions" minlength="1" maxlength="6000" rows="5" cols="50"
-                        required></textarea>
-                    <span class="modal__error" id="recipe-description-error"></span>
-                    <!-- 
-            <input
-              type="text"
-              name="drinks"
-              class="modal__input modal__input_text"
-              placeholder="Drink Suggestions"
-              minlength="1"
-              maxlength="200"
-              disabled
-            />
-            <span class="modal__error" id="recipe-drinks-error"></span>
-            -->
-                    <span class="modal__radios">
-                        <input type="radio" name="menuSelect" id="appetizer-radio"
-                            class="modal__input modal__input_radio" value="appetizers" />
-                        <label for="appetizer-radio">Appetizer</label><br />
-                        <input type="radio" name="menuSelect" id="main-dish-radio"
-                            class="modal__input modal__input_radio" value="mainDishes" />
-                        <label for="main-dish-radio">Main Dish</label><br />
-                        <input type="radio" name="menuSelect" id="dessert-radio" class="modal__input modal__input_radio"
-                            value="desserts" />
-                        <label for="dessert-radio">Dessert</label><br />
+                        <label for="dessert-radio" class="radio__label">Dessert</label><br />
                     </span>
                     <button class="modal__button modal__button_disabled" type="submit" disabled>
                         Add Recipe

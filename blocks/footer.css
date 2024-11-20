@@ -1,5 +1,5 @@
 .footer {
-  background-image: radial-gradient(rgb(252, 175, 10), rgb(141, 42, 3));
+  background-image: radial-gradient(rgba(207, 96, 6, 0.836), rgb(104, 1, 1));
   color: rgb(241, 218, 115);
   margin: 0;
   padding: 30px;
@@ -28,7 +28,7 @@
 }
 .copyright {
   margin: 90px 0 30px;
-  font-size: 20px;
+  font-size: 30px;
   display: flex;
   justify-content: center;
 }

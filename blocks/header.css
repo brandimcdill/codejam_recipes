@@ -1,8 +1,5 @@
 .header {
-  background-image: radial-gradient(
-    rgba(250, 184, 40, 0.781),
-    rgba(143, 33, 6, 0.966)
-  );
+  background-image: radial-gradient(rgba(207, 96, 6, 0.836), rgb(104, 1, 1));
   padding: 20px 30px 10px;
   margin: 0;
   color: rgb(245, 212, 122);
@@ -25,12 +22,13 @@
 }
 .add_recipe-btn {
   font-size: 20px;
+  font-weight: 500;
   padding: 5px;
   cursor: pointer;
   border-radius: 5px;
   width: 200px;
   height: 50px;
-  background: rgb(243, 40, 33);
+  background: rgb(248, 80, 29);
   color: rgb(253, 252, 251);
   font-family: "Italiana", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }

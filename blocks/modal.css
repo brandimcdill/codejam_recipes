@@ -21,35 +21,35 @@
 
 .modal__container {
   background-color: rgb(61, 2, 7);
-  padding: 20px 30px;
+  padding: 30px 30px;
   max-width: 730px;
   position: relative;
   width: 100%;
   box-sizing: border-box;
   border-radius: 5px;
-  font-family: "Italiana", Arial, Helvetica, sans-serif;
+  font-family: "Italiana", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .modal__close {
-  color: #310101;
   background-color: #fdc4c4ee;
   height: 30px;
   width: 30px;
   font-size: 30px;
-  align-self: center;
   position: absolute;
   border: none;
   top: 20px;
   right: 30px;
 }
-.modal__label {
-  display: flex;
-  flex-direction: column;
-  color: rgb(255, 209, 198);
-  font-size: 30px;
-  line-height: 1.5;
-  gap: 5px;
-  padding-top: 20px;
+.modal__close-btn {
+  height: 25px;
+  width: 25px;
+  right: 5px;
+  position: relative;
+  align-self: center;
+  opacity: 1;
+}
+.modal__close-btn:hover {
+  opacity: 0.7;
 }
 .modal__input {
   padding: 10px;
@@ -58,6 +58,8 @@
   line-height: 1;
   border: 1px solid rgba(61, 1, 1, 0.8);
   color: rgb(1, 1, 46);
+  margin-bottom: 8px;
+  font-family: "Italiana", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .modal__input::placeholder {
@@ -66,7 +68,11 @@
 .modal__input:hover {
   border: 1px solid rgb(61, 1, 1);
 }
-
+.radio__label {
+  color: whitesmoke;
+  font-size: 20px;
+  font-family: "Italiana", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
 .modal__error {
   display: block;
   color: rgb(204, 4, 4);
