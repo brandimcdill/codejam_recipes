@@ -34,8 +34,8 @@ function closeModal(modal) {
 }
 
 function renderRecipe(recipeData, wrapper) {
-    const recipeElement = fetchRecipeElement(recipeData);
-    wrapper.prepend(recipeElement);
+  const recipeElement = fetchRecipeElement(recipeData);
+  wrapper.prepend(recipeElement);
 }
 
 function fetchRecipeElement(recipeData) {
@@ -145,13 +145,33 @@ recipeRadioInput.forEach(function (radio) {
   
 
 /* -------------------------------------------------------------------------- */
-/*                              Initialize Recipes                              */
+/*                              Sort and Initialize Recipes                              */
 /* -------------------------------------------------------------------------- */
 
 function intializeRecipes(array, wrapper) {
   array.forEach((recipeData) => {
     renderRecipe(recipeData, wrapper);
   });
+}
+
+let appetizers = [];
+let mainDishes = [];
+let desserts = [];
+
+async function sortRecipes() {
+  let fullRecipeArray;
+  try {
+    fullRecipeArray = await getRecipes();
+    console.log("Full array:", fullRecipeArray);
+    appetizers = fullRecipeArray.filter((item) => item.type === "appetizers");
+    mainDishes = fullRecipeArray.filter((item) => item.type === "mainDishes");
+    desserts = fullRecipeArray.filter((item) => item.type === "desserts");
+    initializeRecipes(appetizers, appetizerListEl);
+    initializeRecipes(mainDishes, mainDishesListEl);
+    initializeRecipes(desserts, dessertsListEl);
+  } catch (error) {
+    console.error("Error creating initial arrays:", error);
+  }
 }
 // callback of this function are at the bottom of the file so they may use the arrays below
 
