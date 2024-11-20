@@ -39,3 +39,17 @@
 .add_recipe-btn:hover {
   background: rgb(202, 44, 16);
 }
+@media screen and (max-width: 627px) {
+  .header__title {
+    font-size: 45px;
+    padding: 0 0 10px;
+    letter-spacing: normal;
+  }
+  .header__description {
+    font-size: 20px;
+    padding: 0 0 10px 20px;
+  }
+  .add_recipe-btn {
+    width: 100%;
+  }
+}

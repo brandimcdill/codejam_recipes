@@ -9,6 +9,17 @@
   margin: 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, 413px);
-  justify-content: center;
+  justify-content: space-evenly;
   gap: 20px;
+}
+@media screen and (max-width: 627px) {
+  .cards {
+    padding: 0;
+  }
+  .cards__list {
+    grid-template-columns: repeat(auto-fit, 250px);
+    padding: 5px;
+    align-content: center;
+    gap: 10px;
+  }
 }

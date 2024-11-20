@@ -30,6 +30,13 @@
 .name {
   padding-bottom: 10px;
 }
+.name__link {
+  text-decoration: none;
+  color: rgb(241, 218, 115);
+}
+.name__link:hover {
+  color: rgb(49, 8, 230);
+}
 .copyright {
   margin: 40px 0 30px;
   font-size: 30px;

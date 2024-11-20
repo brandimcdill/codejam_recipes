@@ -4,7 +4,8 @@
 const appetizerListEl = document.querySelector("#appetizer-list");
 const mainDishesListEl = document.querySelector("#main-dish-list");
 const dessertsListEl = document.querySelector("#desserts-list");
-const recipeTemplate = document.querySelector("#recipe-template").content.firstElementChild;
+const recipeTemplate =
+  document.querySelector("#recipe-template").content.firstElementChild;
 const addRecipeModal = document.querySelector("#recipe-modal");
 const addRecipeForm = addRecipeModal.querySelector("#add-recipe-form");
 const addRecipeBtn = document.querySelector("#add-recipe-btn");
@@ -21,16 +22,16 @@ const dessertsLink = document.querySelector("#dessertsLink");
 /*                                  Functions                                 */
 /* -------------------------------------------------------------------------- */
 function openModal(modal) {
-    modal.classList.add("modal_opened");
-    document.addEventListener("keydown", closeModalEsc);
-    modal.addEventListener("mousedown", closeOverlay);
+  modal.classList.add("modal_opened");
+  document.addEventListener("keydown", closeModalEsc);
+  modal.addEventListener("mousedown", closeOverlay);
 }
 
 function closeModal(modal) {
-    modal.classList.remove("modal_opened");
-    document.removeEventListener("keydown", closeModalEsc);
-    modal.removeEventListener("mousedown", closeOverlay);
-    addRecipeForm.reset();
+  modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", closeModalEsc);
+  modal.removeEventListener("mousedown", closeOverlay);
+  addRecipeForm.reset();
 }
 
 function renderRecipe(recipeData, wrapper) {
@@ -39,39 +40,48 @@ function renderRecipe(recipeData, wrapper) {
 }
 
 function fetchRecipeElement(recipeData) {
-    const recipeElement = recipeTemplate.cloneNode(true);
-    const recipeImageEl = recipeElement.querySelector(".card__image");
-    const recipeTitleEl = recipeElement.querySelector(".card__title");
-    const recipeInstructionsEl = recipeElement.querySelector(".card__description");
-    const recipeHiddenContentEL = recipeElement.querySelector(".card__hidden-content");
+  const recipeElement = recipeTemplate.cloneNode(true);
+  const recipeImageEl = recipeElement.querySelector(".card__image");
+  const recipeTitleEl = recipeElement.querySelector(".card__title");
+  const recipeInstructionsEl =
+    recipeElement.querySelector(".card__description");
+  const recipeHiddenContentEL = recipeElement.querySelector(
+    ".card__hidden-content"
+  );
+  const recipeFooterEl = recipeElement.querySelector(
+    ".card__content_footer_text"
+  );
+  // need to use API for recipeFooterEl
 
-    recipeImageEl.src = recipeData.url;
-    recipeImageEl.alt = recipeData.name;
-    recipeTitleEl.textContent = recipeData.name;
-    recipeInstructionsEl.textContent = recipeData.description;
-    recipeHiddenContentEL.style.display = "none";
-    recipeImageEl.addEventListener("click", () => toggleInstructions(recipeHiddenContentEL));
+  recipeImageEl.src = recipeData.url;
+  recipeImageEl.alt = recipeData.name;
+  recipeTitleEl.textContent = recipeData.name;
+  recipeInstructionsEl.textContent = recipeData.description;
+  recipeHiddenContentEL.style.display = "none";
+  recipeImageEl.addEventListener("click", () =>
+    toggleInstructions(recipeHiddenContentEL)
+  );
 
   return recipeElement;
 }
 
 function handleAddRecipeSubmit(evt) {
-    evt.preventDefault();
-    const newRecipe = {
-      name: recipeTitleInput.value,
-      url: recipeImageInput.value,
-      description: recipeInstructionsInput.value,
-    };
-    if (menuChoice === "appetizers") {
-      renderRecipe(newRecipe, appetizerListEl);
-    } else if (menuChoice === "mainDishes") {
-      renderRecipe(newRecipe, mainDishesListEl);
-    } else if (menuChoice === "desserts") {
-      renderRecipe(newRecipe, dessertsListEl);
-    }
-    evt.target.reset();
-    closeModal(addRecipeModal);
+  evt.preventDefault();
+  const newRecipe = {
+    name: recipeTitleInput.value,
+    url: recipeImageInput.value,
+    description: recipeInstructionsInput.value,
+  };
+  if (menuChoice === "appetizers") {
+    renderRecipe(newRecipe, appetizerListEl);
+  } else if (menuChoice === "mainDishes") {
+    renderRecipe(newRecipe, mainDishesListEl);
+  } else if (menuChoice === "desserts") {
+    renderRecipe(newRecipe, dessertsListEl);
   }
+  evt.target.reset();
+  closeModal(addRecipeModal);
+}
 
 function closeModalEsc(evt) {
   if (evt.key === "Escape") {
@@ -81,35 +91,35 @@ function closeModalEsc(evt) {
 }
 
 function closeOverlay(evt) {
-    if (evt.target.classList.contains("modal")) {
+  if (evt.target.classList.contains("modal")) {
     closeModal(evt.target);
-    }
+  }
 }
 
 function toggleLists(evt) {
-    if (evt.target.id === "appsLink") {
-        appetizerListEl.style.display = "grid";
-        mainDishesListEl.style.display = "none";
-        dessertsListEl.style.display = "none";
-    }
-    if (evt.target.id === "mainDishLink") {
-        appetizerListEl.style.display = "none";
-        mainDishesListEl.style.display = "grid";
-        dessertsListEl.style.display = "none";
-    }
-    if (evt.target.id === "dessertsLink") {
-        appetizerListEl.style.display = "none";
-        mainDishesListEl.style.display = "none";
-        dessertsListEl.style.display = "grid";
-    }
+  if (evt.target.id === "appsLink") {
+    appetizerListEl.style.display = "grid";
+    mainDishesListEl.style.display = "none";
+    dessertsListEl.style.display = "none";
+  }
+  if (evt.target.id === "mainDishLink") {
+    appetizerListEl.style.display = "none";
+    mainDishesListEl.style.display = "grid";
+    dessertsListEl.style.display = "none";
+  }
+  if (evt.target.id === "dessertsLink") {
+    appetizerListEl.style.display = "none";
+    mainDishesListEl.style.display = "none";
+    dessertsListEl.style.display = "grid";
+  }
 }
 
 function toggleInstructions(el) {
-    if (el.style.display === "none") {
-        el.style.display = "block";
-    } else if (el.style.display === "block") {
-        el.style.display = "none";
-    }
+  if (el.style.display === "none") {
+    el.style.display = "block";
+  } else if (el.style.display === "block") {
+    el.style.display = "none";
+  }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -139,8 +149,6 @@ recipeRadioInput.forEach(function (radio) {
     menuChoice = radio.value;
   });
 });
-
-  
 
 /* -------------------------------------------------------------------------- */
 /*                              Sort and Initialize Recipes                              */
@@ -191,11 +199,11 @@ Directions
     Let cheese ball soften to room temperature, about 30 minutes. Serve with crackers and sliced vegetables alongside. 
 Recipe link: https://www.delish.com/cooking/recipe-ideas/a41043084/pumpkin-cheese-ball-recipe/.
 `,
-},
-{
-name: "Brushetta",
-url: "https://hips.hearstapps.com/hmg-prod/images/bruschetta-lead-645d03e6eb7ff.jpg?crop=1xw:1xh;center,top&resize=1200:*",
-description: `
+  },
+  {
+    name: "Brushetta",
+    url: "https://hips.hearstapps.com/hmg-prod/images/bruschetta-lead-645d03e6eb7ff.jpg?crop=1xw:1xh;center,top&resize=1200:*",
+    description: `
 Ingredients
     Tomatoes
     1/4 c. extra-virgin olive oil
