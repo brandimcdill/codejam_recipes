@@ -43,6 +43,7 @@ function fetchRecipeElement(recipeData) {
     const recipeImageEl = recipeElement.querySelector(".card__image");
     const recipeTitleEl = recipeElement.querySelector(".card__title");
     const recipeInstructionsEl = recipeElement.querySelector(".card__description");
+    const recipeHiddenContentEL = recipeElement.querySelector(".card__hidden-content");
     const recipeFooterEl = recipeElement.querySelector(".card__content_footer_text");
     // need to use API for recipeFooterEl
 
@@ -50,14 +51,12 @@ function fetchRecipeElement(recipeData) {
     recipeImageEl.alt = recipeData.name;
     recipeTitleEl.textContent = recipeData.name;
     recipeInstructionsEl.textContent = recipeData.description;
-    recipeInstructionsEl.style.display = "none";
+    recipeHiddenContentEL.style.display = "none";
     recipeImageEl.addEventListener("click", () => {
-        if (recipeInstructionsEl.style.display === "none") {
-            recipeInstructionsEl.style.display = "block";
-            console.log("test1");
-        } else if (recipeInstructionsEl.style.display === "block") {
-            recipeInstructionsEl.style.display = "none";
-            console.log("test2");
+        if (recipeHiddenContentEL.style.display === "none") {
+            recipeHiddenContentEL.style.display = "block";
+        } else if (recipeHiddenContentEL.style.display === "block") {
+            recipeHiddenContentEL.style.display = "none";
         }
     });
 
@@ -110,17 +109,6 @@ function toggleLists(evt) {
         appetizerListEl.style.display = "none";
         mainDishesListEl.style.display = "none";
         dessertsListEl.style.display = "grid";
-    }
-}
-
-function toggleInstructions(evt) {
-    console.log("hello");
-    
-    if (evt.target.style.display === "none") {
-        evt.taget.style.display = "block";
-    } 
-    if (evt.target.style.display === "block") {
-        evt.taget.style.display = "none";
     }
 }
 
