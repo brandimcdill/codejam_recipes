@@ -44,8 +44,6 @@ function fetchRecipeElement(recipeData) {
     const recipeTitleEl = recipeElement.querySelector(".card__title");
     const recipeInstructionsEl = recipeElement.querySelector(".card__description");
     const recipeHiddenContentEL = recipeElement.querySelector(".card__hidden-content");
-    const recipeFooterEl = recipeElement.querySelector(".card__content_footer_text");
-    // need to use API for recipeFooterEl
 
     recipeImageEl.src = recipeData.url;
     recipeImageEl.alt = recipeData.name;
@@ -152,26 +150,6 @@ function intializeRecipes(array, wrapper) {
   array.forEach((recipeData) => {
     renderRecipe(recipeData, wrapper);
   });
-}
-
-let appetizers = [];
-let mainDishes = [];
-let desserts = [];
-
-async function sortRecipes() {
-  let fullRecipeArray;
-  try {
-    fullRecipeArray = await getRecipes();
-    console.log("Full array:", fullRecipeArray);
-    appetizers = fullRecipeArray.filter((item) => item.type === "appetizers");
-    mainDishes = fullRecipeArray.filter((item) => item.type === "mainDishes");
-    desserts = fullRecipeArray.filter((item) => item.type === "desserts");
-    initializeRecipes(appetizers, appetizerListEl);
-    initializeRecipes(mainDishes, mainDishesListEl);
-    initializeRecipes(desserts, dessertsListEl);
-  } catch (error) {
-    console.error("Error creating initial arrays:", error);
-  }
 }
 // callback of this function are at the bottom of the file so they may use the arrays below
 
