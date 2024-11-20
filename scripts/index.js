@@ -4,8 +4,7 @@
 const appetizerListEl = document.querySelector("#appetizer-list");
 const mainDishesListEl = document.querySelector("#main-dish-list");
 const dessertsListEl = document.querySelector("#desserts-list");
-const recipeTemplate =
-  document.querySelector("#recipe-template").content.firstElementChild;
+const recipeTemplate = document.querySelector("#recipe-template").content.firstElementChild;
 const addRecipeModal = document.querySelector("#recipe-modal");
 const addRecipeForm = addRecipeModal.querySelector("#add-recipe-form");
 const addRecipeBtn = document.querySelector("#add-recipe-btn");
@@ -14,78 +13,24 @@ const recipeImageInput = document.querySelector(".modal__input_url");
 const recipeInstructionsInput = document.querySelector(".modal__input_text");
 const recipeRadioInput = document.querySelectorAll('input[name="menuSelect"]');
 let menuChoice = "";
-
-/* -------------------------------------------------------------------------- */
-/*                       Connect to Backend                                   */
-/* -------------------------------------------------------------------------- */
-const baseUrl = "http://localhost:3000";
-
-function checkResponse(res) {
-  if (res.ok) {
-    return res.json();
-  } else {
-    return Promise.reject(`Error: ${res.status}`);
-  }
-}
-
-async function getRecipes() {
-  const response = await fetch(`${baseUrl}/dishes`);
-  const data = await response.json();
-  console.log(data.data);
-  return data.data;
-}
-
-const createNewDish = (data) => {
-  return fetch("http://localhost:3000/dishes", {
-    method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  })
-    .then((response) => response.json())
-    .then((data) => console.log(data))
-    .catch((error) => console.error("Error:", error));
-};
-
-async function fetchDrinkRecommendation(dinner) {
-  try {
-    const response = await fetch("http://localhost:3000/api/query", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
-      },
-      body: JSON.stringify({ dinner: dinner }),
-    });
-
-    // Check for HTTP errors (status code not in the range 200-299)
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log(data.message);
-    return data.message;
-  } catch (error) {
-    console.error("Error fetching drink recommendation:", error);
-  }
-}
+const appsLink = document.querySelector("#appsLink");
+const mainDishLink = document.querySelector("#mainDishLink");
+const dessertsLink = document.querySelector("#dessertsLink");
 
 /* -------------------------------------------------------------------------- */
 /*                                  Functions                                 */
 /* -------------------------------------------------------------------------- */
 function openModal(modal) {
-  modal.classList.add("modal_opened");
-  document.addEventListener("keydown", closeModalEsc);
-  modal.addEventListener("mousedown", closeOverlay);
+    modal.classList.add("modal_opened");
+    document.addEventListener("keydown", closeModalEsc);
+    modal.addEventListener("mousedown", closeOverlay);
 }
 
 function closeModal(modal) {
-  modal.classList.remove("modal_opened");
-  document.removeEventListener("keydown", closeModalEsc);
-  modal.removeEventListener("mousedown", closeOverlay);
-  addRecipeForm.reset();
+    modal.classList.remove("modal_opened");
+    document.removeEventListener("keydown", closeModalEsc);
+    modal.removeEventListener("mousedown", closeOverlay);
+    addRecipeForm.reset();
 }
 
 function renderRecipe(recipeData, wrapper) {
@@ -94,65 +39,41 @@ function renderRecipe(recipeData, wrapper) {
 }
 
 function fetchRecipeElement(recipeData) {
-  const recipeElement = recipeTemplate.cloneNode(true);
-  const recipeImageEl = recipeElement.querySelector(".card__image");
-  const recipeTitleEl = recipeElement.querySelector(".card__title");
-  const recipeInstructionsEl =
-    recipeElement.querySelector(".card__description");
-  const recipeFooterEl = recipeElement.querySelector(
-    ".card__content_footer_text"
-  );
-  // need to use API for recipeFooterEl
+    const recipeElement = recipeTemplate.cloneNode(true);
+    const recipeImageEl = recipeElement.querySelector(".card__image");
+    const recipeTitleEl = recipeElement.querySelector(".card__title");
+    const recipeInstructionsEl = recipeElement.querySelector(".card__description");
+    const recipeHiddenContentEL = recipeElement.querySelector(".card__hidden-content");
+    const recipeFooterEl = recipeElement.querySelector(".card__content_footer_text");
+    // need to use API for recipeFooterEl
 
-  recipeImageEl.src = recipeData.imageUrl;
-  recipeImageEl.alt = recipeData.name;
-  recipeTitleEl.textContent = recipeData.name;
-  recipeInstructionsEl.textContent = recipeData.recipe;
-  recipeFooterEl.textContent = recipeData.drinkRec;
+    recipeImageEl.src = recipeData.url;
+    recipeImageEl.alt = recipeData.name;
+    recipeTitleEl.textContent = recipeData.name;
+    recipeInstructionsEl.textContent = recipeData.description;
+    recipeHiddenContentEL.style.display = "none";
+    recipeImageEl.addEventListener("click", () => toggleInstructions(recipeHiddenContentEL));
 
   return recipeElement;
 }
 
-async function handleAddRecipeSubmit(evt) {
-  evt.preventDefault();
-
-  let drinkRecommendation;
-  try {
-    drinkRecommendation = await fetchDrinkRecommendation(
-      recipeTitleInput.value
-    );
-    console.log("Drink Recommendation:", drinkRecommendation);
-  } catch (error) {
-    console.error("Error fetching drink recommendation:", error);
-    return;
-  }
-
-  let data = {
-    name: recipeTitleInput.value,
-    recipe: recipeInstructionsInput.value,
-    type: menuChoice,
-    imageUrl: recipeImageInput.value,
-    drinkRec: drinkRecommendation,
-  };
-
-  console.log(data);
-
-  try {
-    await createNewDish(data);
+function handleAddRecipeSubmit(evt) {
+    evt.preventDefault();
+    const newRecipe = {
+      name: recipeTitleInput.value,
+      url: recipeImageInput.value,
+      description: recipeInstructionsInput.value,
+    };
+    if (menuChoice === "appetizers") {
+      renderRecipe(newRecipe, appetizerListEl);
+    } else if (menuChoice === "mainDishes") {
+      renderRecipe(newRecipe, mainDishesListEl);
+    } else if (menuChoice === "desserts") {
+      renderRecipe(newRecipe, dessertsListEl);
+    }
     evt.target.reset();
     closeModal(addRecipeModal);
-
-    if (data.type === "appetizers") {
-      renderRecipe(data, appetizerListEl);
-    } else if (data.type === "mainDishes") {
-      renderRecipe(data, mainDishesListEl);
-    } else if (data.type === "desserts") {
-      renderRecipe(data, dessertsListEl);
-    }
-  } catch (error) {
-    console.error("Error creating new dish:", error);
   }
-}
 
 function closeModalEsc(evt) {
   if (evt.key === "Escape") {
@@ -162,9 +83,35 @@ function closeModalEsc(evt) {
 }
 
 function closeOverlay(evt) {
-  if (evt.target.classList.contains("modal")) {
+    if (evt.target.classList.contains("modal")) {
     closeModal(evt.target);
-  }
+    }
+}
+
+function toggleLists(evt) {
+    if (evt.target.id === "appsLink") {
+        appetizerListEl.style.display = "grid";
+        mainDishesListEl.style.display = "none";
+        dessertsListEl.style.display = "none";
+    }
+    if (evt.target.id === "mainDishLink") {
+        appetizerListEl.style.display = "none";
+        mainDishesListEl.style.display = "grid";
+        dessertsListEl.style.display = "none";
+    }
+    if (evt.target.id === "dessertsLink") {
+        appetizerListEl.style.display = "none";
+        mainDishesListEl.style.display = "none";
+        dessertsListEl.style.display = "grid";
+    }
+}
+
+function toggleInstructions(el) {
+    if (el.style.display === "none") {
+        el.style.display = "block";
+    } else if (el.style.display === "block") {
+        el.style.display = "none";
+    }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -173,6 +120,9 @@ function closeOverlay(evt) {
 
 addRecipeBtn.addEventListener("click", () => openModal(addRecipeModal));
 addRecipeForm.addEventListener("submit", handleAddRecipeSubmit);
+appsLink.addEventListener("click", (evt) => toggleLists(evt));
+mainDishLink.addEventListener("click", (evt) => toggleLists(evt));
+dessertsLink.addEventListener("click", (evt) => toggleLists(evt));
 
 const modals = document.querySelectorAll(".modal");
 modals.forEach((modal) => {
@@ -180,7 +130,7 @@ modals.forEach((modal) => {
     if (evt.target.classList.contains("modal_opened")) {
       closeModal(modal);
     }
-    if (evt.target.classList.contains("modal__close")) {
+    if (evt.target.classList.contains("close-btn")) {
       closeModal(modal);
     }
   });
@@ -192,11 +142,13 @@ recipeRadioInput.forEach(function (radio) {
   });
 });
 
+  
+
 /* -------------------------------------------------------------------------- */
 /*                              Sort and Initialize Recipes                              */
 /* -------------------------------------------------------------------------- */
 
-function initializeRecipes(array, wrapper) {
+function intializeRecipes(array, wrapper) {
   array.forEach((recipeData) => {
     renderRecipe(recipeData, wrapper);
   });
@@ -226,14 +178,12 @@ async function sortRecipes() {
 /* -------------------------------------------------------------------------- */
 /*                                Recipes Array                               */
 /* -------------------------------------------------------------------------- */
-
-/*
+// All recipes and images in the default recipe arrays are property of delish.com
 const appetizers = [
   {
     name: "Pumpkin Cheese Ball",
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/delish-202210-pumpkincheeseball-063-1666808006.jpg",
-    recipe: `
+    url: "https://hips.hearstapps.com/hmg-prod/images/delish-202210-pumpkincheeseball-063-1666808006.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*",
+    description: `
         Ingredients
             8 oz. cream cheese, softened to room temperature
             4 oz. fresh goat cheese, softened to room temperature
@@ -263,13 +213,11 @@ const appetizers = [
             Let cheese ball soften to room temperature, about 30 minutes. Serve with crackers and sliced vegetables alongside. 
         Recipe link: https://www.delish.com/cooking/recipe-ideas/a41043084/pumpkin-cheese-ball-recipe/.
 `,
-    drinkRec: "Stout or Porter.",
   },
   {
     name: "Brushetta",
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/bruschetta-lead-645d03e6eb7ff.jpg?crop=1xw:1xh;center,top&resize=1200:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/hmg-prod/images/bruschetta-lead-645d03e6eb7ff.jpg?crop=1xw:1xh;center,top&resize=1200:*",
+    description: `
         Ingredients
             Tomatoes
             1/4 c. extra-virgin olive oil
@@ -304,9 +252,8 @@ const appetizers = [
   },
   {
     name: "Greek Feta Dip",
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/loaded-greek-feta-dip-lead-65eb3db9b6bff.jpg?crop=0.9996875xw:1xh;center,top&resize=980:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/hmg-prod/images/loaded-greek-feta-dip-lead-65eb3db9b6bff.jpg?crop=0.9996875xw:1xh;center,top&resize=980:*",
+    description: `
         Ingredients
             12 oz. feta
             1 c. Greek yogurt
@@ -330,9 +277,8 @@ const appetizers = [
   },
   {
     name: "Melon Prosciutto Skewers",
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/melon-prosciutto-skewers-lead-66057c047c96a.jpg?crop=1xw:1xh;center,top&resize=980:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/hmg-prod/images/melon-prosciutto-skewers-lead-66057c047c96a.jpg?crop=1xw:1xh;center,top&resize=980:*",
+    description: `
         Ingredients
             1 cantaloupe
             12 fresh basil leaves
@@ -352,9 +298,8 @@ const appetizers = [
   },
   {
     name: "Slow-Cooker Crab Dip",
-    imageUrl:
-      "https://hips.hearstapps.com/del.h-cdn.co/assets/15/45/1446765266-delish-slowcooker-crab-dip.jpg?resize=980:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/del.h-cdn.co/assets/15/45/1446765266-delish-slowcooker-crab-dip.jpg?resize=980:*",
+    description: `
         Ingredients
             12 oz. cream cheese
             1/2 c. freshly grated Parmesan, plus more for garnish
@@ -379,9 +324,8 @@ const appetizers = [
   },
   {
     name: "Cranberry Brie Jalapeno Poppers",
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/cranberry-brie-jalapen-o-poppers-lead-654eb2a3ad0b7.jpg?crop=1xw:1xh;center,top&resize=980:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/hmg-prod/images/cranberry-brie-jalapen-o-poppers-lead-654eb2a3ad0b7.jpg?crop=1xw:1xh;center,top&resize=980:*",
+    description: `
         Ingredients
             (8-oz.) brie wheel, chopped into small pieces
             1 1/2 c. shredded mozzarella
@@ -407,9 +351,8 @@ const appetizers = [
 const mainDishes = [
   {
     name: "Stuffed Turkey Breast",
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/stuffed-turkey-breast-recipe-1-6524600715f14.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/hmg-prod/images/stuffed-turkey-breast-recipe-1-6524600715f14.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*",
+    description: `
         Ingredients
             For the turkey:
             1/4 c. salted butter, softened
@@ -455,9 +398,8 @@ const mainDishes = [
   },
   {
     name: "Shaved Brussels Sprouts with Bacon and Warm Apple Cider Dressing",
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/shaved-brussels-sprouts-with-bacon-1661454514.jpg?crop=0.816xw:0.681xh;0.109xw,0.167xh&resize=1200:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/hmg-prod/images/shaved-brussels-sprouts-with-bacon-1661454514.jpg?crop=0.816xw:0.681xh;0.109xw,0.167xh&resize=1200:*",
+    description: `
         Ingredients
             1/4 c. fresh apple cider
             1 Tbsp. Dijon mustard
@@ -483,9 +425,8 @@ const mainDishes = [
   },
   {
     name: "Bourbon Yams",
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/bourbon-yams-1634058469.jpg?crop=1.00xw:1.00xh;0,0.00136xh&resize=1200:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/hmg-prod/images/bourbon-yams-1634058469.jpg?crop=1.00xw:1.00xh;0,0.00136xh&resize=1200:*",
+    description: `
         Ingredients
             6 Tbsp. unsalted butter, at room temperature, divided, plus more for dish
             6 sweet potatoes (4 pounds)
@@ -507,9 +448,8 @@ const mainDishes = [
   },
   {
     name: "Cranberry-Grape Sauce",
-    imageUrl:
-      "https://hips.hearstapps.com/clv.h-cdn.co/assets/16/40/1475592450-gallery-1475529277-clx110116-cranberry-recipe.jpg?crop=1.00xw:0.834xh;0,0.0409xh&resize=1200:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/clv.h-cdn.co/assets/16/40/1475592450-gallery-1475529277-clx110116-cranberry-recipe.jpg?crop=1.00xw:0.834xh;0,0.0409xh&resize=1200:*",
+    description: `
         Ingredients
             1 shallot, chopped
             2 Tbsp. extra-virgin olive oil
@@ -533,9 +473,8 @@ const mainDishes = [
   },
   {
     name: "Oyster Stuffing with Bacon-Scallion Cream Sauce",
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/oyster-stuffing-1634057154.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/hmg-prod/images/oyster-stuffing-1634057154.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*",
+    description: `
         Ingredients
             For stuffing:
             1/2 c. (1 stick) unsalted butter, plus more for baking dish
@@ -576,9 +515,8 @@ const mainDishes = [
   },
   {
     name: "Mile-High Flaky Biscuits",
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/mile-high-flaky-biscuits-cl-0418-1519922973.jpg?crop=1xw:0.99975xh;center,top&resize=1200:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/hmg-prod/images/mile-high-flaky-biscuits-cl-0418-1519922973.jpg?crop=1xw:0.99975xh;center,top&resize=1200:*",
+    description: `
         Ingredients
             4 c. all-purpose flour, spooned and leveled, plus more for working
             4 tsp. baking powder
@@ -602,9 +540,8 @@ const mainDishes = [
 const desserts = [
   {
     name: "Cranberry Bliss Cupcakes",
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/cranberry-bliss-cupcakes-third-6706ce27e3b01.jpg?crop=1xw:1xh;center,top&resize=980:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/hmg-prod/images/cranberry-bliss-cupcakes-third-6706ce27e3b01.jpg?crop=1xw:1xh;center,top&resize=980:*",
+    description: `
         Ingredients
             Sugared Cranberries
             3/4 c. (140 g.) superfine sugar, divided
@@ -657,9 +594,8 @@ const desserts = [
   },
   {
     name: "Pecan Pie Cheesecake Bars",
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/pecan-pie-cheesecake-bars-lead-6706f27f91f09.jpg?crop=1xw:0.9997508098679292xh;center,top&resize=1200:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/hmg-prod/images/pecan-pie-cheesecake-bars-lead-6706f27f91f09.jpg?crop=1xw:0.9997508098679292xh;center,top&resize=1200:*",
+    description: `
         Ingredients
             Crust
             14 graham crackers
@@ -714,9 +650,8 @@ const desserts = [
   },
   {
     name: "French Silk Brownies",
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/french-silk-brownies-lead-67005cf96fe40.jpg?crop=1xw:1xh;center,top&resize=1200:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/hmg-prod/images/french-silk-brownies-lead-67005cf96fe40.jpg?crop=1xw:1xh;center,top&resize=1200:*",
+    description: `
         Ingredients
             Brownie Bars
             Cooking spray
@@ -776,9 +711,8 @@ const desserts = [
   },
   {
     name: "Apple Crisp",
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/apple-crisp-lead-6435c97008904.jpg?crop=1xw:1xh;center,top&resize=1200:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/hmg-prod/images/apple-crisp-lead-6435c97008904.jpg?crop=1xw:1xh;center,top&resize=1200:*",
+    description: `
         Ingredients
             5 Honeycrisp, Granny Smith, and/or Cripp’s Pink apples, peeled, cored, sliced 1/4" to 1/2" thick
             2 Tbsp. cornstarch
@@ -808,9 +742,8 @@ const desserts = [
   },
   {
     name: "Pumpkin Cheesecake",
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/del089923-pumpkincheesecake-web-048-ls-lead-64d511a87320b.jpg?crop=1xw:1xh;center,top&resize=1200:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/hmg-prod/images/del089923-pumpkincheesecake-web-048-ls-lead-64d511a87320b.jpg?crop=1xw:1xh;center,top&resize=1200:*",
+    description: `
         Ingredients
             Crust
             Nonstick cooking spray
@@ -862,9 +795,8 @@ const desserts = [
   },
   {
     name: "Frozen Peppermint Pattie Pie",
-    imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/frozen-peppermint-pattie-pie-lead-670edaffcbfeb.jpg?crop=1xw:1xh;center,top&resize=1200:*",
-    recipe: `
+    url: "https://hips.hearstapps.com/hmg-prod/images/frozen-peppermint-pattie-pie-lead-670edaffcbfeb.jpg?crop=1xw:1xh;center,top&resize=1200:*",
+    description: `
         Ingredients
             Crust
             20 Oreos
@@ -898,6 +830,7 @@ const desserts = [
         `,
   },
 ];
-*/
 
-sortRecipes();
+intializeRecipes(appetizers, appetizerListEl);
+intializeRecipes(mainDishes, mainDishesListEl);
+intializeRecipes(desserts, dessertsListEl);

@@ -17,9 +17,8 @@ function showInputError(formEl, inputEl, { inputErrorClass }) {
 function hideInputError(formEl, inputEl, { inputErrorClass }) {
   const errorMessageEl = formEl.querySelector(`#recipe-${inputEl.name}-error`);
   inputEl.classList.remove(inputErrorClass);
-  /*
+  errorMessageEl.textContent = "";
   errorMessageEl.classList.remove(config.errorClass);
-  */
 }
 
 function checkInputValidity(formEl, inputEl, configuration) {

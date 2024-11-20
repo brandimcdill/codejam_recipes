@@ -25,13 +25,17 @@
         <nav class="nav">
           <ul class="nav__links">
             <li>
-              <a href="#apps" class="nav__link">Appetizers</a>
+              <a href="#apps" class="nav__link" id="appsLink">Appetizers</a>
             </li>
             <li>
-              <a href="#main" class="nav__link">Main Dishes</a>
+              <a href="#main" class="nav__link" id="mainDishLink"
+                >Main Dishes</a
+              >
             </li>
             <li>
-              <a href="#desserts" class="nav__link">Desserts</a>
+              <a href="#desserts" class="nav__link" id="dessertsLink"
+                >Desserts</a
+              >
             </li>
             <li>
               <a href="#about" class="nav__link">About Us</a>
@@ -45,8 +49,12 @@
       <main class="content">
         <section class="cards">
           <ul class="cards__list" id="appetizer-list"></ul>
-          <ul class="cards__list" id="main-dish-list"></ul>
-          <ul class="cards__list" id="desserts-list"></ul>
+          <ul
+            class="cards__list"
+            id="main-dish-list"
+            style="display: none"
+          ></ul>
+          <ul class="cards__list" id="desserts-list" style="display: none"></ul>
         </section>
       </main>
       <footer id="#about" class="footer">
@@ -56,7 +64,6 @@
             <li class="name">Brandi McDill</li>
             <li class="name">Rob Kelley</li>
             <li class="name">Emma Woelk</li>
-            <li class="name"></li>
           </ul>
         </div>
         <p class="copyright">2024 &copy; Recipes</p>
@@ -65,7 +72,10 @@
       <!-- Modals -->
       <div class="modal" id="recipe-modal">
         <div class="modal__container">
-          <button type="submit" class="modal__close"></button>
+          <button type="submit" class="close-btn">
+            <!--<a href=" https://www.flaticon.com/free-icons/close-button" title="close button icons">Close button
+                        icons created by droy gambar - Flaticon</a> -->
+          </button>
           <form class="modal__form" id="add-recipe-form" novalidate>
             <input
               type="text"
@@ -115,8 +125,10 @@
                 id="appetizer-radio"
                 class="modal__input modal__input_radio"
                 value="appetizers"
+                required
               />
-              <label for="appetizer-radio">Appetizer</label><br />
+              <label for="appetizer-radio" class="radio__label">Appetizer</label
+              ><br />
               <input
                 type="radio"
                 name="menuSelect"
@@ -124,7 +136,8 @@
                 class="modal__input modal__input_radio"
                 value="mainDishes"
               />
-              <label for="main-dish-radio">Main Dish</label><br />
+              <label for="main-dish-radio" class="radio__label">Main Dish</label
+              ><br />
               <input
                 type="radio"
                 name="menuSelect"
@@ -132,7 +145,9 @@
                 class="modal__input modal__input_radio"
                 value="desserts"
               />
-              <label for="dessert-radio">Dessert</label><br />
+              <label for="dessert-radio" class="radio__label">Dessert</label
+              ><br />
+              <span class="modal__error" id="recipe-menuSelect-error"></span>
             </span>
             <button
               class="modal__button modal__button_disabled"
@@ -147,16 +162,18 @@
     </div>
 
     <!-- Templates -->
-    <template id="recipe-template">
+    <template class="modal" id="recipe-template">
       <li class="card">
-        <img src="" alt="" class="card__image" />
         <div class="card__content">
+          <img src="" alt="" class="card__image" />
           <h2 class="card__title"></h2>
-          <p class="card__description"></p>
-          <div class="card__content_footer">
-            <h3 class="card__content_footer_title">Drink Suggestions</h3>
-            <p class="card__content_footer_text"></p>
-          </div>
+          <span class="card__hidden-content">
+            <p class="card__description"></p>
+            <div class="card__content_footer">
+              <h3 class="card__content_footer_title">Drink Suggestions</h3>
+              <p class="card__content_footer_text"></p>
+            </div>
+          </span>
         </div>
       </li>
     </template>

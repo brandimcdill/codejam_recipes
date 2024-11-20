@@ -11,12 +11,13 @@
   padding: 20px 0 20px 0;
   font-size: 40px;
   line-height: 1.5;
+  letter-spacing: 0.15em;
 }
 .nav__link {
   color: #ffe65a;
   text-decoration: none;
   font-weight: 500;
-  font-family: Italiana, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Italiana", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 .nav__link:hover {
   color: rgb(49, 8, 230);

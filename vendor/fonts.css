@@ -1,26 +1,20 @@
 @font-face {
-  font-family: "BodoniModa";
+  font-family: "Bodoni_Moda";
   font-style: italic;
   font-weight: 400;
   src: url("./fonts/Bodoni_Moda/BodoniModa-Italic-VariableFont_opsz\,wght.ttf")
-    format("ttf");
+    format("truetype");
 }
 @font-face {
-  font-family: "BodoniModa";
+  font-family: "Bodoni_Moda";
   font-style: normal;
   font-weight: 400;
   src: url("./fonts/Bodoni_Moda/BodoniModa-VariableFont_opsz\,wght.ttf")
-    format("ttf");
+    format("truetype");
 }
 @font-face {
   font-family: "Italiana";
   font-style: normal;
   font-weight: 400;
-  src: url("./fonts/Italiana/Italiana-Regular.ttf") format("ttf");
-}
-@font-face {
-  font-family: "Great_Vibes";
-  font-style: normal;
-  font-weight: 400;
-  src: url("./fonts/Great_Vibes/GreatVibes-Regular.ttf") format("ttf");
+  src: url("./fonts/Italiana/Italiana-Regular.ttf") format("truetype");
 }
