@@ -18,6 +18,7 @@
   visibility: visible;
   opacity: 1;
 }
+
 .modal__container {
   background-color: rgb(61, 2, 7);
   padding: 20px 30px;

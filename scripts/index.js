@@ -1,11 +1,9 @@
 /* -------------------------------------------------------------------------- */
 /*                                  Elements                                  */
 /* -------------------------------------------------------------------------- */
-const recipeListEl = document.querySelectorAll('.cards__list');
 const appetizerListEl = document.querySelector('#appetizer-list');
 const mainDishesListEl = document.querySelector('#main-dish-list');
 const dessertsListEl = document.querySelector('#desserts-list');
-
 const recipeTemplate = document.querySelector('#recipe-template').content.firstElementChild;
 const addRecipeModal = document.querySelector('#recipe-modal');
 const addRecipeForm = addRecipeModal.querySelector('#add-recipe-form');
@@ -13,13 +11,14 @@ const addRecipeBtn = document.querySelector('#add-recipe-btn');
 const recipeTitleInput = document.querySelector('.modal__input_title');
 const recipeImageInput = document.querySelector('.modal__input_url');
 const recipeInstructionsInput = document.querySelector('.modal__input_text');
-
+const recipeRadioInput = document.querySelectorAll('input[name="menuSelect"]');
+let menuChoice = "";
 
 /* -------------------------------------------------------------------------- */
 /*                                  Functions                                 */
 /* -------------------------------------------------------------------------- */
 function openModal(modal){
-    modal.classList.add('modal_opened'); // add class to modal.css
+    modal.classList.add('modal_opened');
     document.addEventListener("keydown", closeModalEsc);
     modal.addEventListener("mousedown", closeOverlay);
 }
@@ -58,8 +57,13 @@ function handleAddRecipeSubmit (evt){
         url: recipeImageInput.value,
         description: recipeInstructionsInput.value
     }
-    // need to change the function from the point below so it will place card in right list
-    renderRecipe(newRecipe, recipeListEl)
+    if (menuChoice === "appetizers") {
+        renderRecipe(newRecipe, appetizerListEl);
+    } else if (menuChoice === "mainDishes") {
+        renderRecipe(newRecipe, mainDishesListEl);
+    } else if (menuChoice === "desserts") {
+        renderRecipe(newRecipe, dessertsListEl);
+    }
     evt.target.reset();
     closeModal(addRecipeModal);
 }
@@ -95,7 +99,15 @@ modals.forEach((modal) => {
           closeModal(modal);
         }
     })
-})
+});
+
+
+recipeRadioInput.forEach(function(radio) {
+    radio.addEventListener('change', function() {
+    menuChoice = radio.value;
+    })
+});
+
 
 /* -------------------------------------------------------------------------- */
 /*                              Initialize Recipes                              */

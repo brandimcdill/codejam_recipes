@@ -85,15 +85,16 @@
               required
             />
             <span class="modal__error" id="recipe-url-error"></span>
-            <input
-              type="text"
+            <textarea
               name="description"
               class="modal__input modal__input_text"
               placeholder="Recipe Instructions"
               minlength="1"
               maxlength="6000"
+              rows="5"
+              cols="50"
               required
-            />
+            ></textarea>
             <span class="modal__error" id="recipe-description-error"></span>
             <!-- 
             <input
@@ -108,12 +109,30 @@
             <span class="modal__error" id="recipe-drinks-error"></span>
             -->
             <span class="modal__radios">
-              <input type="radio" id="appetizer-radio" name="appRadio" />
-              <label for="appRadio">Appetizer</label><br />
-              <input type="radio" id="main-dish-radio" name="mainDishRadio" />
-              <label for="mainDishRadio">Main Dish</label><br />
-              <input type="radio" id="dessert-radio" name="dessertRadio" />
-              <label for="dessertRadio">Dessert</label><br />
+              <input
+                type="radio"
+                name="menuSelect"
+                id="appetizer-radio"
+                class="modal__input modal__input_radio"
+                value="appetizers"
+              />
+              <label for="appetizer-radio">Appetizer</label><br />
+              <input
+                type="radio"
+                name="menuSelect"
+                id="main-dish-radio"
+                class="modal__input modal__input_radio"
+                value="mainDishes"
+              />
+              <label for="main-dish-radio">Main Dish</label><br />
+              <input
+                type="radio"
+                name="menuSelect"
+                id="dessert-radio"
+                class="modal__input modal__input_radio"
+                value="desserts"
+              />
+              <label for="dessert-radio">Dessert</label><br />
             </span>
             <button
               class="modal__button modal__button_disabled"
@@ -141,6 +160,7 @@
         </div>
       </li>
     </template>
-    <script defer src="./scripts/index.js"></script>
+    <script src="./scripts/index.js"></script>
+    <script src="./scripts/validation.js"></script>
   </body>
 </html>
