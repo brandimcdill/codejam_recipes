@@ -92,6 +92,7 @@
                     <span class="modal__radios">
                         <input type="radio" name="menuSelect" id="appetizer-radio"
                             class="modal__input modal__input_radio" value="appetizers" />
+                        required
                         <label for="appetizer-radio" class="radio__label">Appetizer</label><br />
                         <input type="radio" name="menuSelect" id="main-dish-radio"
                             class="modal__input modal__input_radio" value="mainDishes" />
@@ -99,6 +100,7 @@
                         <input type="radio" name="menuSelect" id="dessert-radio" class="modal__input modal__input_radio"
                             value="desserts" />
                         <label for="dessert-radio" class="radio__label">Dessert</label><br />
+                        <span class="modal__error" id="recipe-menuSelect-error"></span>
                     </span>
                     <button class="modal__button modal__button_disabled" type="submit" disabled>
                         Add Recipe
