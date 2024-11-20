@@ -15,9 +15,6 @@ const recipeInstructionsInput = document.querySelector(".modal__input_text");
 const recipeRadioInput = document.querySelectorAll('input[name="menuSelect"]');
 let menuChoice = "";
 
-let OPENAI_API_KEY =
-  "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";
-
 /* -------------------------------------------------------------------------- */
 /*                       Connect to Backend                                   */
 /* -------------------------------------------------------------------------- */
