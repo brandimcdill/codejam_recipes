@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const validator = require("validator");
 
-const clothingItemSchema = new mongoose.Schema({
+const dishSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -18,7 +18,7 @@ const clothingItemSchema = new mongoose.Schema({
   type: {
     type: String,
     required: true,
-    enum: ["main", "appetizer", "dessert"],
+    enum: ["mainDishes", "appetizers", "desserts"],
   },
   imageUrl: {
     type: String,
@@ -32,10 +32,8 @@ const clothingItemSchema = new mongoose.Schema({
     },
   },
 
-  owner: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "user",
-    required: true,
+  drinkRec: {
+    type: String,
   },
 
   createdAt: {
@@ -44,4 +42,4 @@ const clothingItemSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("clothingItem", clothingItemSchema);
+module.exports = mongoose.model("dish", dishSchema);

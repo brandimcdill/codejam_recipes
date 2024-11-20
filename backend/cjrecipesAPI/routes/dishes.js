@@ -1,11 +1,18 @@
 const router = require("express").Router();
+const cors = require("cors");
 
-const { getDishes, createNewDish } = require("../controllers/dishes");
+const {
+  getDishes,
+  createNewDish,
+  clearDishes,
+} = require("../controllers/dishes");
 
-const auth = require("../middleware/auth");
+router.use(cors());
 
 router.get("/dishes", getDishes);
 
-router.post("/dishes", auth, createNewDish);
+router.post("/dishes", createNewDish);
+
+router.delete("/dishes", clearDishes);
 
 module.exports = router;

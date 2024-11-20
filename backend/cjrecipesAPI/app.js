@@ -12,7 +12,7 @@ const dishRouter = require("./routes/dishes");
 const mainRouter = require("./routes/index");
 
 const { PORT = 3000 } = process.env;
-
+app.use(cors());
 app.use("/", mainRouter);
 app.use("/", dishRouter);
 app.use("/", userRouter);
@@ -25,10 +25,8 @@ mongoose
   .catch(console.error);
 
 app.use(express.json());
-app.use(cors());
 
 app.post("/api/query", async (req, res) => {
-  let dinner = "pasta with marinara";
   try {
     const response = await axios.post(
       "https://api.openai.com/v1/chat/completions",
@@ -42,7 +40,7 @@ app.post("/api/query", async (req, res) => {
           },
           {
             role: "user",
-            content: `What drink would you pair with ${dinner}?`,
+            content: `What drink would you pair with ${req.body.dinner}?`,
           },
         ],
       },
@@ -65,7 +63,7 @@ app.post("/api/query", async (req, res) => {
 });
 
 app.use((req, res, next) => {
-  res.status(NOT_FOUND_CODE).send({ message: "Requested resource not found" });
+  res.status(404).send({ message: "Requested resource not found" });
   next();
 });
 

@@ -16,20 +16,32 @@ module.exports.getDishes = (req, res) => {
 };
 
 module.exports.createNewDish = (req, res) => {
-  console.log(req.user._id);
   const { name, recipe, type, imageUrl } = req.body;
   console.log(req.body);
 
   dish
-    .create({ name, recipe, type, imageUrl, owner: req.user._id })
+    .create({ name, recipe, type, imageUrl })
     .then((item) => res.status(201).send({ data: item }))
     .catch((err) => {
       if (err.name === "ValidationError") {
-        res.status(VALIDATION_ERROR_CODE).send({ message: err.message });
+        res.status(VALIDATION_ERROR_CODE).send({ message: err.name });
       } else {
         res
           .status(DEFAULT_ERROR_CODE)
           .send({ message: "An error has occurred on the server." });
       }
+    });
+};
+
+module.exports.clearDishes = (req, res) => {
+  dish
+    .deleteMany()
+    .then(function () {
+      // Success
+      console.log("Data deleted");
+    })
+    .catch(function (error) {
+      // Failure
+      console.log(error);
     });
 };
