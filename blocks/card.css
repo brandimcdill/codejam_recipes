@@ -3,7 +3,6 @@
 }
 .card__image {
   object-fit: cover;
-  max-width: 500px;
 }
 .card__content {
   display: flex;
