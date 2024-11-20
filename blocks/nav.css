@@ -16,7 +16,7 @@
   color: #ffe65a;
   text-decoration: none;
   font-weight: 500;
-  font-family: Italiana, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Italiana", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 .nav__link:hover {
   color: rgb(49, 8, 230);

@@ -11,9 +11,9 @@
 }
 .footer__title {
   margin: 0;
-  font-size: 50px;
+  font-size: 60px;
   line-height: 1.5;
-  font-family: Italiana, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Bodoni_Moda", "Times New Roman", Times, serif;
 }
 .footer__names {
   margin: 0;
@@ -21,7 +21,7 @@
   font-weight: 500;
   padding-top: 50px;
   list-style: none;
-  font-family: Italiana, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Italiana", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 .name {
   padding-bottom: 10px;

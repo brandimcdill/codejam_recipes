@@ -26,7 +26,7 @@
   width: 100%;
   box-sizing: border-box;
   border-radius: 5px;
-  font-family: Italiana, Arial, Helvetica, sans-serif;
+  font-family: "Italiana", Arial, Helvetica, sans-serif;
 }
 
 .modal__close {

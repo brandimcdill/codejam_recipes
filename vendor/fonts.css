@@ -1,12 +1,12 @@
 @font-face {
-  font-family: "BodoniModa";
+  font-family: "Bodoni_Moda";
   font-style: italic;
   font-weight: 400;
   src: url("./fonts/Bodoni_Moda/BodoniModa-Italic-VariableFont_opsz\,wght.ttf")
     format("ttf");
 }
 @font-face {
-  font-family: "BodoniModa";
+  font-family: "Bodoni_Moda";
   font-style: normal;
   font-weight: 400;
   src: url("./fonts/Bodoni_Moda/BodoniModa-VariableFont_opsz\,wght.ttf")
