@@ -1,38 +1,39 @@
 /* -------------------------------------------------------------------------- */
 /*                                  Elements                                  */
 /* -------------------------------------------------------------------------- */
-const appetizerListEl = document.querySelector('#appetizer-list');
-const mainDishesListEl = document.querySelector('#main-dish-list');
-const dessertsListEl = document.querySelector('#desserts-list');
-const recipeTemplate = document.querySelector('#recipe-template').content.firstElementChild;
-const addRecipeModal = document.querySelector('#recipe-modal');
-const addRecipeForm = addRecipeModal.querySelector('#add-recipe-form');
-const addRecipeBtn = document.querySelector('#add-recipe-btn');
-const recipeTitleInput = document.querySelector('.modal__input_title');
-const recipeImageInput = document.querySelector('.modal__input_url');
-const recipeInstructionsInput = document.querySelector('.modal__input_text');
+const appetizerListEl = document.querySelector("#appetizer-list");
+const mainDishesListEl = document.querySelector("#main-dish-list");
+const dessertsListEl = document.querySelector("#desserts-list");
+const recipeTemplate =
+  document.querySelector("#recipe-template").content.firstElementChild;
+const addRecipeModal = document.querySelector("#recipe-modal");
+const addRecipeForm = addRecipeModal.querySelector("#add-recipe-form");
+const addRecipeBtn = document.querySelector("#add-recipe-btn");
+const recipeTitleInput = document.querySelector(".modal__input_title");
+const recipeImageInput = document.querySelector(".modal__input_url");
+const recipeInstructionsInput = document.querySelector(".modal__input_text");
 const recipeRadioInput = document.querySelectorAll('input[name="menuSelect"]');
 let menuChoice = "";
 
 /* -------------------------------------------------------------------------- */
 /*                                  Functions                                 */
 /* -------------------------------------------------------------------------- */
-function openModal(modal){
-    modal.classList.add('modal_opened');
-    document.addEventListener("keydown", closeModalEsc);
-    modal.addEventListener("mousedown", closeOverlay);
+function openModal(modal) {
+  modal.classList.add("modal_opened");
+  document.addEventListener("keydown", closeModalEsc);
+  modal.addEventListener("mousedown", closeOverlay);
 }
 
-function closeModal(modal){
-    modal.classList.remove('modal_opened');
-    document.removeEventListener("keydown", closeModalEsc);
-    modal.removeEventListener("mousedown", closeOverlay);
-    addRecipeForm.reset();
-} 
+function closeModal(modal) {
+  modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", closeModalEsc);
+  modal.removeEventListener("mousedown", closeOverlay);
+  addRecipeForm.reset();
+}
 
 function renderRecipe(recipeData, wrapper) {
-    const recipeElement = fetchRecipeElement(recipeData);
-    wrapper.prepend(recipeElement);
+  const recipeElement = fetchRecipeElement(recipeData);
+  wrapper.prepend(recipeElement);
 }
 
 function fetchRecipeElement(recipeData) {
@@ -50,12 +51,15 @@ function fetchRecipeElement(recipeData) {
   recipeImageEl.alt = recipeData.name;
   recipeTitleEl.textContent = recipeData.name;
   recipeInstructionsEl.textContent = recipeData.description;
-function fetchRecipeElement(recipeData) {
+  function fetchRecipeElement(recipeData) {
     const recipeElement = recipeTemplate.cloneNode(true);
-    const recipeImageEl = recipeElement.querySelector('.card__image');
-    const recipeTitleEl = recipeElement.querySelector('.card__title');
-    const recipeInstructionsEl = recipeElement.querySelector('.card__description');
-    const recipeFooterEl = recipeElement.querySelector('.card__content_footer_text');
+    const recipeImageEl = recipeElement.querySelector(".card__image");
+    const recipeTitleEl = recipeElement.querySelector(".card__title");
+    const recipeInstructionsEl =
+      recipeElement.querySelector(".card__description");
+    const recipeFooterEl = recipeElement.querySelector(
+      ".card__content_footer_text"
+    );
     // need to use API for recipeFooterEl
 
     recipeImageEl.src = recipeData.url;
@@ -64,87 +68,83 @@ function fetchRecipeElement(recipeData) {
     recipeInstructionsEl.textContent = recipeData.description;
 
     return recipeElement;
-}
+  }
 
-function handleAddRecipeSubmit (evt){
+  function handleAddRecipeSubmit(evt) {
     evt.preventDefault();
     const newRecipe = {
-        name: recipeTitleInput.value,
-        url: recipeImageInput.value,
-        description: recipeInstructionsInput.value
-    }
+      name: recipeTitleInput.value,
+      url: recipeImageInput.value,
+      description: recipeInstructionsInput.value,
+    };
     if (menuChoice === "appetizers") {
-        renderRecipe(newRecipe, appetizerListEl);
+      renderRecipe(newRecipe, appetizerListEl);
     } else if (menuChoice === "mainDishes") {
-        renderRecipe(newRecipe, mainDishesListEl);
+      renderRecipe(newRecipe, mainDishesListEl);
     } else if (menuChoice === "desserts") {
-        renderRecipe(newRecipe, dessertsListEl);
+      renderRecipe(newRecipe, dessertsListEl);
     }
     evt.target.reset();
     closeModal(addRecipeModal);
-}
+  }
 
-
-function closeModalEsc(evt) {
+  function closeModalEsc(evt) {
     if (evt.key === "Escape") {
       const modal = document.querySelector(".modal_opened");
       closeModal(modal);
     }
-}
+  }
 
-function closeOverlay(evt) {
+  function closeOverlay(evt) {
     if (evt.target.classList.contains("modal")) {
-        closeModal(evt.target);
+      closeModal(evt.target);
     }
-}
+  }
 
-/* -------------------------------------------------------------------------- */
-/*                               Event Listeners                              */
-/* -------------------------------------------------------------------------- */
+  /* -------------------------------------------------------------------------- */
+  /*                               Event Listeners                              */
+  /* -------------------------------------------------------------------------- */
 
-addRecipeBtn.addEventListener('click', () => openModal(addRecipeModal));
-addRecipeForm.addEventListener('submit', handleAddRecipeSubmit);
+  addRecipeBtn.addEventListener("click", () => openModal(addRecipeModal));
+  addRecipeForm.addEventListener("submit", handleAddRecipeSubmit);
 
-const modals = document.querySelectorAll('.modal');
-modals.forEach((modal) => {
-    modal.addEventListener('mousedown', (evt) => {
-        if (evt.target.classList.contains('modal_opened')) {
-            closeModal(modal);
-        }
-        if (evt.target.classList.contains('modal__close')) {
-          closeModal(modal);
-        }
-    })
-});
-
-
-recipeRadioInput.forEach(function(radio) {
-    radio.addEventListener('change', function() {
-    menuChoice = radio.value;
-    })
-});
-
-
-/* -------------------------------------------------------------------------- */
-/*                              Initialize Recipes                              */
-/* -------------------------------------------------------------------------- */
-
-function intializeRecipes(array, wrapper) { 
-    array.forEach((recipeData) => {
-        renderRecipe(recipeData, wrapper);
+  const modals = document.querySelectorAll(".modal");
+  modals.forEach((modal) => {
+    modal.addEventListener("mousedown", (evt) => {
+      if (evt.target.classList.contains("modal_opened")) {
+        closeModal(modal);
+      }
+      if (evt.target.classList.contains("modal__close")) {
+        closeModal(modal);
+      }
     });
-}
-// callback of this function are at the bottom of the file so they may use the arrays below
+  });
 
+  recipeRadioInput.forEach(function (radio) {
+    radio.addEventListener("change", function () {
+      menuChoice = radio.value;
+    });
+  });
 
-/* -------------------------------------------------------------------------- */
-/*                                Recipes Array                               */
-/* -------------------------------------------------------------------------- */
-const appetizers =[
+  /* -------------------------------------------------------------------------- */
+  /*                              Initialize Recipes                              */
+  /* -------------------------------------------------------------------------- */
+
+  function intializeRecipes(array, wrapper) {
+    array.forEach((recipeData) => {
+      renderRecipe(recipeData, wrapper);
+    });
+  }
+  // callback of this function are at the bottom of the file so they may use the arrays below
+
+  /* -------------------------------------------------------------------------- */
+  /*                                Recipes Array                               */
+  /* -------------------------------------------------------------------------- */
+  const appetizers = [
     {
-        name: 'Pumpkin Cheese Ball',
-        url: 'https://hips.hearstapps.com/hmg-prod/images/delish-202210-pumpkincheeseball-063-1666808006.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*',
-        description: `
+      name: "Pumpkin Cheese Ball",
+      url: "https://hips.hearstapps.com/hmg-prod/images/delish-202210-pumpkincheeseball-063-1666808006.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*",
+      description: `
         Ingredients
             8 oz. cream cheese, softened to room temperature
             4 oz. fresh goat cheese, softened to room temperature
@@ -173,12 +173,12 @@ const appetizers =[
             Step 6
             Let cheese ball soften to room temperature, about 30 minutes. Serve with crackers and sliced vegetables alongside. 
         Recipe link: https://www.delish.com/cooking/recipe-ideas/a41043084/pumpkin-cheese-ball-recipe/.
-`
+`,
     },
     {
-        name: 'Brushetta',
-        url: 'https://hips.hearstapps.com/hmg-prod/images/bruschetta-lead-645d03e6eb7ff.jpg?crop=1xw:1xh;center,top&resize=1200:*',
-        description: `
+      name: "Brushetta",
+      url: "https://hips.hearstapps.com/hmg-prod/images/bruschetta-lead-645d03e6eb7ff.jpg?crop=1xw:1xh;center,top&resize=1200:*",
+      description: `
         Ingredients
             Tomatoes
             1/4 c. extra-virgin olive oil
@@ -209,12 +209,12 @@ const appetizers =[
             Step 3
             Arrange bread on a platter and spoon tomatoes on garlic-rubbed side of bread just before serving 
         Recipe link: https://www.delish.com/cooking/recipe-ideas/a27409128/best-bruschetta-tomato-recipe/
-        `
+        `,
     },
     {
-        name: 'Greek Feta Dip',
-        url: 'https://hips.hearstapps.com/hmg-prod/images/loaded-greek-feta-dip-lead-65eb3db9b6bff.jpg?crop=0.9996875xw:1xh;center,top&resize=980:*',
-        description: `
+      name: "Greek Feta Dip",
+      url: "https://hips.hearstapps.com/hmg-prod/images/loaded-greek-feta-dip-lead-65eb3db9b6bff.jpg?crop=0.9996875xw:1xh;center,top&resize=980:*",
+      description: `
         Ingredients
             12 oz. feta
             1 c. Greek yogurt
@@ -234,12 +234,12 @@ const appetizers =[
             Step 2
             Transfer dip to a serving bowl. Top with cucumber, tomatoes, dill, and a drizzle of oil. Serve with chips alongside.
         Recipe link: https://www.delish.com/cooking/recipe-ideas/recipes/a50968/greek-feta-dip-recipe/
-        `
+        `,
     },
     {
-        name: 'Melon Prosciutto Skewers',
-        url: 'https://hips.hearstapps.com/hmg-prod/images/melon-prosciutto-skewers-lead-66057c047c96a.jpg?crop=1xw:1xh;center,top&resize=980:*',
-        description: `
+      name: "Melon Prosciutto Skewers",
+      url: "https://hips.hearstapps.com/hmg-prod/images/melon-prosciutto-skewers-lead-66057c047c96a.jpg?crop=1xw:1xh;center,top&resize=980:*",
+      description: `
         Ingredients
             1 cantaloupe
             12 fresh basil leaves
@@ -255,12 +255,12 @@ const appetizers =[
             Step 3
             Drizzle skewers with balsamic glaze and serve immediately.
         Recipe link: https://www.delish.com/cooking/recipe-ideas/recipes/a53065/melon-prosciutto-skewers-recipe/
-        `
+        `,
     },
     {
-        name: 'Slow-Cooker Crab Dip',
-        url: 'https://hips.hearstapps.com/del.h-cdn.co/assets/15/45/1446765266-delish-slowcooker-crab-dip.jpg?resize=980:*',
-        description: `
+      name: "Slow-Cooker Crab Dip",
+      url: "https://hips.hearstapps.com/del.h-cdn.co/assets/15/45/1446765266-delish-slowcooker-crab-dip.jpg?resize=980:*",
+      description: `
         Ingredients
             12 oz. cream cheese
             1/2 c. freshly grated Parmesan, plus more for garnish
@@ -281,12 +281,12 @@ const appetizers =[
             Step 3
             Garnish with Parm, green onions, and Old Bay. Serve with crackers.
         Recipe link: https://www.delish.com/cooking/recipe-ideas/recipes/a44678/slow-cooker-crab-dip-recipe/
-        `
+        `,
     },
     {
-        name: 'Cranberry Brie Jalapeno Poppers',
-        url: 'https://hips.hearstapps.com/hmg-prod/images/cranberry-brie-jalapen-o-poppers-lead-654eb2a3ad0b7.jpg?crop=1xw:1xh;center,top&resize=980:*',
-        description: `
+      name: "Cranberry Brie Jalapeno Poppers",
+      url: "https://hips.hearstapps.com/hmg-prod/images/cranberry-brie-jalapen-o-poppers-lead-654eb2a3ad0b7.jpg?crop=1xw:1xh;center,top&resize=980:*",
+      description: `
         Ingredients
             (8-oz.) brie wheel, chopped into small pieces
             1 1/2 c. shredded mozzarella
@@ -305,15 +305,15 @@ const appetizers =[
             Place on a baking sheet and bake until prosciutto is crispy and peppers are tender, about 25 minutes. Serve warm with remaining cranberry sauce.
             prosciutto, halved lengthwise 
         Recipe link: https://www.delish.com/cooking/recipe-ideas/a34702463/cranberry-brie-jalapeno-poppers-recipe/
-        `
-    }
-]
+        `,
+    },
+  ];
 
-const mainDishes =[
+  const mainDishes = [
     {
-        name: 'Stuffed Turkey Breast',
-        url: 'https://hips.hearstapps.com/hmg-prod/images/stuffed-turkey-breast-recipe-1-6524600715f14.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*',
-        description: `
+      name: "Stuffed Turkey Breast",
+      url: "https://hips.hearstapps.com/hmg-prod/images/stuffed-turkey-breast-recipe-1-6524600715f14.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*",
+      description: `
         Ingredients
             For the turkey:
             1/4 c. salted butter, softened
@@ -355,12 +355,12 @@ const mainDishes =[
             10For the gravy: Remove the rack from the roasting pan and place the pan over medium heat. Whisk the flour into the drippings and cook, stirring frequently, until the roux is golden brown. Gradually add the stock, whisking to break up any clumps. Bring to a gentle simmer. Cook, whisking frequently, until the gravy is smooth and thickened, about 3 minutes. Add salt and pepper to taste.
             11Cut the twine off the turkey and slice. Serve with warm gravy and extra parsley and black pepper, if you'd like.
         Recipe link:https://www.thepioneerwoman.com/food-cooking/recipes/a44902220/stuffed-turkey-breast-turkey-roulade-recipe/
-        `
+        `,
     },
     {
-        name: 'Shaved Brussels Sprouts with Bacon and Warm Apple Cider Dressing',
-        url: 'https://hips.hearstapps.com/hmg-prod/images/shaved-brussels-sprouts-with-bacon-1661454514.jpg?crop=0.816xw:0.681xh;0.109xw,0.167xh&resize=1200:*',
-        description: `
+      name: "Shaved Brussels Sprouts with Bacon and Warm Apple Cider Dressing",
+      url: "https://hips.hearstapps.com/hmg-prod/images/shaved-brussels-sprouts-with-bacon-1661454514.jpg?crop=0.816xw:0.681xh;0.109xw,0.167xh&resize=1200:*",
+      description: `
         Ingredients
             1/4 c. fresh apple cider
             1 Tbsp. Dijon mustard
@@ -382,12 +382,12 @@ const mainDishes =[
             Step 3
             Add dressing to skillet and cook, scraping up any brown bits from the bottom of the skillet, just until starting to thicken, 30 seconds to 1 minute. Return bacon and Brussels sprouts to skillet and toss to coat. Discard thyme. Serve warm topped with pecans.
         Recipe link: https://www.countryliving.com/food-drinks/a40993149/shaved-brussels-sprouts-warm-apple-cider/
-        `
+        `,
     },
     {
-        name: 'Bourbon Yams',
-        url: 'https://hips.hearstapps.com/hmg-prod/images/bourbon-yams-1634058469.jpg?crop=1.00xw:1.00xh;0,0.00136xh&resize=1200:*',
-        description: `
+      name: "Bourbon Yams",
+      url: "https://hips.hearstapps.com/hmg-prod/images/bourbon-yams-1634058469.jpg?crop=1.00xw:1.00xh;0,0.00136xh&resize=1200:*",
+      description: `
         Ingredients
             6 Tbsp. unsalted butter, at room temperature, divided, plus more for dish
             6 sweet potatoes (4 pounds)
@@ -405,12 +405,12 @@ const mainDishes =[
             Step 3
             Bake until bubbly and warmed through, 30 to 35 minutes.
         Recipe link: https://www.countryliving.com/food-drinks/a37938138/bourbon-yams-recipe/
-        `
+        `,
     },
     {
-        name: 'Cranberry-Grape Sauce',
-        url: 'https://hips.hearstapps.com/clv.h-cdn.co/assets/16/40/1475592450-gallery-1475529277-clx110116-cranberry-recipe.jpg?crop=1.00xw:0.834xh;0,0.0409xh&resize=1200:*',
-        description: `
+      name: "Cranberry-Grape Sauce",
+      url: "https://hips.hearstapps.com/clv.h-cdn.co/assets/16/40/1475592450-gallery-1475529277-clx110116-cranberry-recipe.jpg?crop=1.00xw:0.834xh;0,0.0409xh&resize=1200:*",
+      description: `
         Ingredients
             1 shallot, chopped
             2 Tbsp. extra-virgin olive oil
@@ -430,12 +430,12 @@ const mainDishes =[
             Step 3
             Stir in orange zest. Season with salt and pepper. Serve warm or at room temperature.
         Recipe link: https://www.countryliving.com/food-drinks/recipes/a40031/cranberry-grape-sauce-recipe/
-        `
+        `,
     },
     {
-        name: 'Oyster Stuffing with Bacon-Scallion Cream Sauce',
-        url: 'https://hips.hearstapps.com/hmg-prod/images/oyster-stuffing-1634057154.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*',
-        description: `
+      name: "Oyster Stuffing with Bacon-Scallion Cream Sauce",
+      url: "https://hips.hearstapps.com/hmg-prod/images/oyster-stuffing-1634057154.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*",
+      description: `
         Ingredients
             For stuffing:
             1/2 c. (1 stick) unsalted butter, plus more for baking dish
@@ -472,12 +472,12 @@ const mainDishes =[
             Step 4
             Make Bacon-Scallion Cream Sauce: Melt butter in a medium saucepan over medium heat. Add bacon and cook until rendered, 3 to 5 minutes. Reduce heat to low. Add flour, and cook, stirring often, until golden and fragrant, 4 to 6 minutes. Stir in chicken stock and heavy cream. Simmer until reduced to a thick, pourable gravy, 8 to 10 minutes. Remove from heat. Stir in cracked peppercorns and scallions. Season with kosher salt. Serve hot garnished with sliced scallions.
         Recipe link: https://www.countryliving.com/food-drinks/a37937894/oyster-stuffing-with-bacon-scallion-cream-sauce-recipe/
-        `
+        `,
     },
     {
-        name: 'Mile-High Flaky Biscuits',
-        url: 'https://hips.hearstapps.com/hmg-prod/images/mile-high-flaky-biscuits-cl-0418-1519922973.jpg?crop=1xw:0.99975xh;center,top&resize=1200:*',
-        description: `
+      name: "Mile-High Flaky Biscuits",
+      url: "https://hips.hearstapps.com/hmg-prod/images/mile-high-flaky-biscuits-cl-0418-1519922973.jpg?crop=1xw:0.99975xh;center,top&resize=1200:*",
+      description: `
         Ingredients
             4 c. all-purpose flour, spooned and leveled, plus more for working
             4 tsp. baking powder
@@ -494,15 +494,15 @@ const mainDishes =[
             Step 3
             Bake until golden brown, 18 to 20 minutes.
         Recipe link: https://www.countryliving.com/food-drinks/a19040029/mile-high-flaky-biscuits-recipe/
-        `
-    }
-]
+        `,
+    },
+  ];
 
-const desserts =[
+  const desserts = [
     {
-        name: 'Cranberry Bliss Cupcakes',
-        url: 'https://hips.hearstapps.com/hmg-prod/images/cranberry-bliss-cupcakes-third-6706ce27e3b01.jpg?crop=1xw:1xh;center,top&resize=980:*',
-        description: `
+      name: "Cranberry Bliss Cupcakes",
+      url: "https://hips.hearstapps.com/hmg-prod/images/cranberry-bliss-cupcakes-third-6706ce27e3b01.jpg?crop=1xw:1xh;center,top&resize=980:*",
+      description: `
         Ingredients
             Sugared Cranberries
             3/4 c. (140 g.) superfine sugar, divided
@@ -551,12 +551,12 @@ const desserts =[
             Step 2
             Spread frosting onto cupcakes. Garnish with orange zest and sugared cranberries.
         Recipe link: https://www.delish.com/cooking/recipe-ideas/a62121995/cranberry-bliss-cupcakes-recipe/
-        `
+        `,
     },
     {
-        name: 'Pecan Pie Cheesecake Bars',
-        url: 'https://hips.hearstapps.com/hmg-prod/images/pecan-pie-cheesecake-bars-lead-6706f27f91f09.jpg?crop=1xw:0.9997508098679292xh;center,top&resize=1200:*',
-        description: `
+      name: "Pecan Pie Cheesecake Bars",
+      url: "https://hips.hearstapps.com/hmg-prod/images/pecan-pie-cheesecake-bars-lead-6706f27f91f09.jpg?crop=1xw:0.9997508098679292xh;center,top&resize=1200:*",
+      description: `
         Ingredients
             Crust
             14 graham crackers
@@ -607,12 +607,12 @@ const desserts =[
             Step 3
             Make Ahead: Topping can be made 1 hour ahead. Transfer to an airtight container and store at room temperature (don’t refrigerate as butter will solidify).
         Recipe link: https://www.delish.com/cooking/recipe-ideas/a61936679/pecan-pie-cheesecake-bars-recipe/
-        `
+        `,
     },
     {
-        name: 'French Silk Brownies',
-        url: 'https://hips.hearstapps.com/hmg-prod/images/french-silk-brownies-lead-67005cf96fe40.jpg?crop=1xw:1xh;center,top&resize=1200:*',
-        description: `
+      name: "French Silk Brownies",
+      url: "https://hips.hearstapps.com/hmg-prod/images/french-silk-brownies-lead-67005cf96fe40.jpg?crop=1xw:1xh;center,top&resize=1200:*",
+      description: `
         Ingredients
             Brownie Bars
             Cooking spray
@@ -668,12 +668,12 @@ const desserts =[
             Step 3
             Using parchment overhang, lift out brownies and transfer to a cutting board. Top with chocolate shavings. Cut into squares.
         Recipe link: https://www.delish.com/cooking/recipe-ideas/a62611087/french-silk-brownies-recipe/
-        `
+        `,
     },
     {
-        name: 'Apple Crisp',
-        url: 'https://hips.hearstapps.com/hmg-prod/images/apple-crisp-lead-6435c97008904.jpg?crop=1xw:1xh;center,top&resize=1200:*',
-        description: `
+      name: "Apple Crisp",
+      url: "https://hips.hearstapps.com/hmg-prod/images/apple-crisp-lead-6435c97008904.jpg?crop=1xw:1xh;center,top&resize=1200:*",
+      description: `
         Ingredients
             5 Honeycrisp, Granny Smith, and/or Cripp’s Pink apples, peeled, cored, sliced 1/4" to 1/2" thick
             2 Tbsp. cornstarch
@@ -699,12 +699,12 @@ const desserts =[
             Step 4
             Bake until apples are soft, topping is crisp and golden brown, and juices are bubbling around edges of dish, 55 to 70 minutes. Serve warm with ice cream (if using).
         Recipe link: https://www.delish.com/cooking/recipe-ideas/a43051815/apple-crisp-recipe/
-        `
+        `,
     },
     {
-        name: 'Pumpkin Cheesecake',
-        url: 'https://hips.hearstapps.com/hmg-prod/images/del089923-pumpkincheesecake-web-048-ls-lead-64d511a87320b.jpg?crop=1xw:1xh;center,top&resize=1200:*',
-        description: `
+      name: "Pumpkin Cheesecake",
+      url: "https://hips.hearstapps.com/hmg-prod/images/del089923-pumpkincheesecake-web-048-ls-lead-64d511a87320b.jpg?crop=1xw:1xh;center,top&resize=1200:*",
+      description: `
         Ingredients
             Crust
             Nonstick cooking spray
@@ -752,12 +752,12 @@ const desserts =[
             Step 7
             Top with whipped cream and serve.
         Recipe link: https://www.delish.com/cooking/recipe-ideas/a44053320/pumpkin-cheesecake-recipe/
-        `
+        `,
     },
     {
-        name: 'Frozen Peppermint Pattie Pie',
-        url: 'https://hips.hearstapps.com/hmg-prod/images/frozen-peppermint-pattie-pie-lead-670edaffcbfeb.jpg?crop=1xw:1xh;center,top&resize=1200:*',
-        description: `
+      name: "Frozen Peppermint Pattie Pie",
+      url: "https://hips.hearstapps.com/hmg-prod/images/frozen-peppermint-pattie-pie-lead-670edaffcbfeb.jpg?crop=1xw:1xh;center,top&resize=1200:*",
+      description: `
         Ingredients
             Crust
             20 Oreos
@@ -788,11 +788,11 @@ const desserts =[
             Step 2
             Uncover pie. Pour ganache over and smooth in an even layer. Continue to freeze until chocolate is set, at least 15 minutes and up to 1 hour.
         Recipe link: https://www.delish.com/cooking/recipe-ideas/a62740022/frozen-peppermint-pattie-pie-recipe/
-        `
-    }
-];
+        `,
+    },
+  ];
 
-
-intializeRecipes(appetizers, appetizerListEl);
-intializeRecipes(mainDishes, mainDishesListEl);
-intializeRecipes(desserts, dessertsListEl);
+  intializeRecipes(appetizers, appetizerListEl);
+  intializeRecipes(mainDishes, mainDishesListEl);
+  intializeRecipes(desserts, dessertsListEl);
+}
