@@ -117,7 +117,7 @@ function fetchRecipeElement(recipeData) {
       if (evt.target.classList.contains("modal_opened")) {
         closeModal(modal);
       }
-      if (evt.target.classList.contains("close_btn")) {
+      if (evt.target.classList.contains("close-btn")) {
         closeModal(modal);
       }
     });
