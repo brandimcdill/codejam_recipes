@@ -1,19 +1,26 @@
 .header {
-  background-color: rgb(165, 83, 24);
+  background-image: radial-gradient(
+    rgba(250, 184, 40, 0.781),
+    rgba(143, 33, 6, 0.966)
+  );
   padding: 20px 30px 10px;
   margin: 0;
+  color: rgb(245, 212, 122);
 }
+
 .header__title {
   font-size: 90px;
   margin: 0;
   font-weight: 500;
   line-height: 1.5;
+  font-family: Great_Vibes, "Times New Roman", Times, serif;
 }
 .header__description {
   font-size: 40px;
   margin: 0;
   padding: 0 0 20px 80px;
   max-width: 575px;
+  font-family: Italiana, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 .add_recipe-btn {
   font-size: 20px;
@@ -22,9 +29,9 @@
   border-radius: 5px;
   width: 200px;
   height: 50px;
-  background: rgb(226, 77, 18);
-  color: whitesmoke;
+  background: rgb(243, 40, 33);
+  color: rgb(253, 252, 251);
 }
 .add_recipe-btn:hover {
-  background-color: rgb(223, 100, 52);
+  background: rgb(202, 44, 16);
 }
