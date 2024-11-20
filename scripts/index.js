@@ -1,18 +1,21 @@
 /* -------------------------------------------------------------------------- */
 /*                                  Elements                                  */
 /* -------------------------------------------------------------------------- */
-const appetizerListEl = document.querySelector('#appetizer-list');
-const mainDishesListEl = document.querySelector('#main-dish-list');
-const dessertsListEl = document.querySelector('#desserts-list');
-const recipeTemplate = document.querySelector('#recipe-template').content.firstElementChild;
-const addRecipeModal = document.querySelector('#recipe-modal');
-const addRecipeForm = addRecipeModal.querySelector('#add-recipe-form');
-const addRecipeBtn = document.querySelector('#add-recipe-btn');
-const recipeTitleInput = document.querySelector('.modal__input_title');
-const recipeImageInput = document.querySelector('.modal__input_url');
-const recipeInstructionsInput = document.querySelector('.modal__input_text');
+const appetizerListEl = document.querySelector("#appetizer-list");
+const mainDishesListEl = document.querySelector("#main-dish-list");
+const dessertsListEl = document.querySelector("#desserts-list");
+const recipeTemplate = document.querySelector("#recipe-template").content.firstElementChild;
+const addRecipeModal = document.querySelector("#recipe-modal");
+const addRecipeForm = addRecipeModal.querySelector("#add-recipe-form");
+const addRecipeBtn = document.querySelector("#add-recipe-btn");
+const recipeTitleInput = document.querySelector(".modal__input_title");
+const recipeImageInput = document.querySelector(".modal__input_url");
+const recipeInstructionsInput = document.querySelector(".modal__input_text");
 const recipeRadioInput = document.querySelectorAll('input[name="menuSelect"]');
 let menuChoice = "";
+const appsLink = document.querySelector("#appsLink");
+const mainDishLink = document.querySelector("#mainDishLink");
+const dessertsLink = document.querySelector("#dessertsLink");
 
 /* -------------------------------------------------------------------------- */
 /*                                  Functions                                 */
@@ -36,12 +39,17 @@ function renderRecipe(recipeData, wrapper) {
 }
 
 function fetchRecipeElement(recipeData) {
-    const recipeElement = recipeTemplate.cloneNode(true);
-    const recipeImageEl = recipeElement.querySelector('.card__image');
-    const recipeTitleEl = recipeElement.querySelector('.card__title');
-    const recipeInstructionsEl = recipeElement.querySelector('.card__description');
-    const recipeFooterEl = recipeElement.querySelector('.card__content_footer_text');
-    // need to use API for recipeFooterEl
+  const recipeElement = recipeTemplate.cloneNode(true);
+  const recipeImageEl = recipeElement.querySelector(".card__image");
+  const recipeTitleEl = recipeElement.querySelector(".card__title");
+  const recipeInstructionsEl = recipeElement.querySelector(".card__description");
+  const recipeFooterEl = recipeElement.querySelector(".card__content_footer_text");
+  // need to use API for recipeFooterEl
+
+  recipeImageEl.src = recipeData.url;
+  recipeImageEl.alt = recipeData.name;
+  recipeTitleEl.textContent = recipeData.name;
+  recipeInstructionsEl.textContent = recipeData.description;
 
     recipeImageEl.src = recipeData.url;
     recipeImageEl.alt = recipeData.name;
@@ -81,7 +89,26 @@ function closeOverlay(evt) {
     if (evt.target.classList.contains("modal")) {
         closeModal(evt.target);
     }
-}
+  }
+
+  function toggleContent(evt) {
+    if (evt.target.id === "appsLink") {
+        appetizerListEl.style.display = "grid";
+        mainDishesListEl.style.display = "none";
+        dessertsListEl.style.display = "none";
+    }
+    if (evt.target.id === "mainDishLink") {
+        appetizerListEl.style.display = "none";
+        mainDishesListEl.style.display = "grid";
+        dessertsListEl.style.display = "none";
+    }
+    if (evt.target.id === "dessertsLink") {
+        appetizerListEl.style.display = "none";
+        mainDishesListEl.style.display = "none";
+        dessertsListEl.style.display = "grid";
+    }
+
+  }
 
 /* -------------------------------------------------------------------------- */
 /*                               Event Listeners                              */
@@ -90,25 +117,27 @@ function closeOverlay(evt) {
 addRecipeBtn.addEventListener('click', () => openModal(addRecipeModal));
 addRecipeForm.addEventListener('submit', handleAddRecipeSubmit);
 
-const modals = document.querySelectorAll('.modal');
-modals.forEach((modal) => {
-    modal.addEventListener('mousedown', (evt) => {
-        if (evt.target.classList.contains('modal_opened')) {
-            closeModal(modal);
-        }
-        if (evt.target.classList.contains('modal__close')) {
-          closeModal(modal);
-        }
-    })
-});
+  const modals = document.querySelectorAll(".modal");
+  modals.forEach((modal) => {
+    modal.addEventListener("mousedown", (evt) => {
+      if (evt.target.classList.contains("modal_opened")) {
+        closeModal(modal);
+      }
+      if (evt.target.classList.contains("close_btn")) {
+        closeModal(modal);
+      }
+    });
+  });
 
+  recipeRadioInput.forEach(function (radio) {
+    radio.addEventListener("change", function () {
+      menuChoice = radio.value;
+    });
+  });
 
-recipeRadioInput.forEach(function(radio) {
-    radio.addEventListener('change', function() {
-    menuChoice = radio.value;
-    })
-});
-
+  appsLink.addEventListener("click", (evt) => toggleContent(evt));
+  mainDishLink.addEventListener("click", (evt) => toggleContent(evt));
+  dessertsLink.addEventListener("click", (evt) => toggleContent(evt));
 
 /* -------------------------------------------------------------------------- */
 /*                              Initialize Recipes                              */
@@ -122,10 +151,11 @@ function intializeRecipes(array, wrapper) {
 // callback of this function are at the bottom of the file so they may use the arrays below
 
 
-/* -------------------------------------------------------------------------- */
-/*                                Recipes Array                               */
-/* -------------------------------------------------------------------------- */
-const appetizers =[
+  /* -------------------------------------------------------------------------- */
+  /*                                Recipes Array                               */
+  /* -------------------------------------------------------------------------- */
+  // All recipes and images in the default recipe arrays are property of delish.com
+  const appetizers = [
     {
         name: 'Pumpkin Cheese Ball',
         url: 'https://hips.hearstapps.com/hmg-prod/images/delish-202210-pumpkincheeseball-063-1666808006.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*',
@@ -778,6 +808,6 @@ const desserts =[
 ];
 
 
-intializeRecipes(appetizers, appetizerListEl);
-intializeRecipes(mainDishes, mainDishesListEl);
-intializeRecipes(desserts, dessertsListEl);
+  intializeRecipes(appetizers, appetizerListEl);
+  intializeRecipes(mainDishes, mainDishesListEl);
+  intializeRecipes(desserts, dessertsListEl);
