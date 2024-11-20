@@ -52,13 +52,7 @@ function fetchRecipeElement(recipeData) {
     recipeTitleEl.textContent = recipeData.name;
     recipeInstructionsEl.textContent = recipeData.description;
     recipeHiddenContentEL.style.display = "none";
-    recipeImageEl.addEventListener("click", () => {
-        if (recipeHiddenContentEL.style.display === "none") {
-            recipeHiddenContentEL.style.display = "block";
-        } else if (recipeHiddenContentEL.style.display === "block") {
-            recipeHiddenContentEL.style.display = "none";
-        }
-    });
+    recipeImageEl.addEventListener("click", () => toggleInstructions(recipeHiddenContentEL));
 
   return recipeElement;
 }
@@ -109,6 +103,14 @@ function toggleLists(evt) {
         appetizerListEl.style.display = "none";
         mainDishesListEl.style.display = "none";
         dessertsListEl.style.display = "grid";
+    }
+}
+
+function toggleInstructions(el) {
+    if (el.style.display === "none") {
+        el.style.display = "block";
+    } else if (el.style.display === "block") {
+        el.style.display = "none";
     }
 }
 
