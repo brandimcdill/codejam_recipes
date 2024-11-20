@@ -11,14 +11,17 @@
   font-weight: 500;
   line-height: 1.5;
   font-family: "Bodoni_Moda", "Times New Roman", Times, serif;
+  font-style: italic;
   padding-left: 40px;
+  letter-spacing: 0.2em;
 }
 .header__description {
   font-size: 40px;
   margin: 0;
   padding: 0 0 20px 80px;
-  max-width: 575px;
+  max-width: 600px;
   font-family: "Italiana", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.15em;
 }
 .add_recipe-btn {
   font-size: 20px;
@@ -31,6 +34,7 @@
   background: rgb(248, 80, 29);
   color: rgb(253, 252, 251);
   font-family: "Italiana", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.15em;
 }
 .add_recipe-btn:hover {
   background: rgb(202, 44, 16);
