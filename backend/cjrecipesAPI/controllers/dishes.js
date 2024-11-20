@@ -16,11 +16,11 @@ module.exports.getDishes = (req, res) => {
 };
 
 module.exports.createNewDish = (req, res) => {
-  const { name, recipe, type, imageUrl } = req.body;
+  const { name, recipe, type, imageUrl, drinkRec } = req.body;
   console.log(req.body);
 
   dish
-    .create({ name, recipe, type, imageUrl })
+    .create({ name, recipe, type, imageUrl, drinkRec })
     .then((item) => res.status(201).send({ data: item }))
     .catch((err) => {
       if (err.name === "ValidationError") {

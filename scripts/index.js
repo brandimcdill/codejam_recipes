@@ -15,8 +15,11 @@ const recipeInstructionsInput = document.querySelector(".modal__input_text");
 const recipeRadioInput = document.querySelectorAll('input[name="menuSelect"]');
 let menuChoice = "";
 
+let OPENAI_API_KEY =
+  "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";
+
 /* -------------------------------------------------------------------------- */
-/*                                  Connect to Backend                        */
+/*                       Connect to Backend                                   */
 /* -------------------------------------------------------------------------- */
 const baseUrl = "http://localhost:3000";
 
@@ -28,9 +31,12 @@ function checkResponse(res) {
   }
 }
 
-const getRecipes = () => {
-  return fetch(`${baseUrl}/dishes`).then(checkResponse);
-};
+async function getRecipes() {
+  const response = await fetch(`${baseUrl}/dishes`);
+  const data = await response.json();
+  console.log(data.data);
+  return data.data;
+}
 
 const createNewDish = (data) => {
   return fetch("http://localhost:3000/dishes", {
@@ -46,16 +52,27 @@ const createNewDish = (data) => {
 };
 
 async function fetchDrinkRecommendation(dinner) {
-  const response = await fetch("http://localhost:3000/api/query", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ dinner: dinner }),
-  });
-  const data = await response.json();
-  console.log(data.message);
-  return data.message;
+  try {
+    const response = await fetch("http://localhost:3000/api/query", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({ dinner: dinner }),
+    });
+
+    // Check for HTTP errors (status code not in the range 200-299)
+    if (!response.ok) {
+      throw new Error(`HTTP error! Status: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log(data.message);
+    return data.message;
+  } catch (error) {
+    console.error("Error fetching drink recommendation:", error);
+  }
 }
 
 /* -------------------------------------------------------------------------- */
@@ -179,24 +196,46 @@ recipeRadioInput.forEach(function (radio) {
 });
 
 /* -------------------------------------------------------------------------- */
-/*                              Initialize Recipes                              */
+/*                              Sort and Initialize Recipes                              */
 /* -------------------------------------------------------------------------- */
 
-function intializeRecipes(array, wrapper) {
+function initializeRecipes(array, wrapper) {
   array.forEach((recipeData) => {
     renderRecipe(recipeData, wrapper);
   });
+}
+
+let appetizers = [];
+let mainDishes = [];
+let desserts = [];
+
+async function sortRecipes() {
+  let fullRecipeArray;
+  try {
+    fullRecipeArray = await getRecipes();
+    console.log("Full array:", fullRecipeArray);
+    appetizers = fullRecipeArray.filter((item) => item.type === "appetizers");
+    mainDishes = fullRecipeArray.filter((item) => item.type === "mainDishes");
+    desserts = fullRecipeArray.filter((item) => item.type === "desserts");
+    initializeRecipes(appetizers, appetizerListEl);
+    initializeRecipes(mainDishes, mainDishesListEl);
+    initializeRecipes(desserts, dessertsListEl);
+  } catch (error) {
+    console.error("Error creating initial arrays:", error);
+  }
 }
 // callback of this function are at the bottom of the file so they may use the arrays below
 
 /* -------------------------------------------------------------------------- */
 /*                                Recipes Array                               */
 /* -------------------------------------------------------------------------- */
+
+/*
 const appetizers = [
   {
     name: "Pumpkin Cheese Ball",
     imageUrl:
-      "https://hips.hearstapps.com/hmg-prod/images/delish-202210-pumpkincheeseball-063-1666808006.jpg?crop=1.00xw:1.00xh;0,0&resize=1200:*",
+      "https://hips.hearstapps.com/hmg-prod/images/delish-202210-pumpkincheeseball-063-1666808006.jpg",
     recipe: `
         Ingredients
             8 oz. cream cheese, softened to room temperature
@@ -862,7 +901,6 @@ const desserts = [
         `,
   },
 ];
+*/
 
-intializeRecipes(appetizers, appetizerListEl);
-intializeRecipes(mainDishes, mainDishesListEl);
-intializeRecipes(desserts, dessertsListEl);
+sortRecipes();

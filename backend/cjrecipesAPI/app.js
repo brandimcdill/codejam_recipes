@@ -7,7 +7,6 @@ const app = express();
 require("dotenv").config();
 app.use(express.json());
 
-const userRouter = require("./routes/users");
 const dishRouter = require("./routes/dishes");
 const mainRouter = require("./routes/index");
 
@@ -15,7 +14,6 @@ const { PORT = 3000 } = process.env;
 app.use(cors());
 app.use("/", mainRouter);
 app.use("/", dishRouter);
-app.use("/", userRouter);
 
 mongoose
   .connect("mongodb://localhost:27017/codejamrecipes")

@@ -7,13 +7,11 @@ const dishSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 30,
   },
   recipe: {
     type: String,
     required: true,
     minlength: 2,
-    maxlength: 500,
   },
   type: {
     type: String,
@@ -23,13 +21,14 @@ const dishSchema = new mongoose.Schema({
   imageUrl: {
     type: String,
     required: true,
-
+    /*
     validate: {
       validator(value) {
         return validator.isURL(value);
       },
       message: "You must enter a valid URL",
     },
+    */
   },
 
   drinkRec: {
