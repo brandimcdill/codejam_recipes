@@ -35,14 +35,18 @@ function renderRecipe(recipeData, wrapper) {
     wrapper.prepend(recipeElement);
 }
 
-function fetchRecipeElement(cardData) {
+function fetchRecipeElement(recipeData) {
     const recipeElement = recipeTemplate.cloneNode(true);
     const recipeImageEl = recipeElement.querySelector('.card__image');
     const recipeTitleEl = recipeElement.querySelector('.card__title');
+    const recipeInstructionsEl = recipeElement.querySelector('.card__description');
+    const recipeFooterEl = recipeElement.querySelector('.card__content_footer_text');
+    // need to use API for recipeFooterEl
 
-    recipeImageEl.src = cardData.link;
-    recipeImageEl.alt = cardData.name;
-    recipeTitleEl.textContent = cardData.name;
+    recipeImageEl.src = recipeData.url;
+    recipeImageEl.alt = recipeData.name;
+    recipeTitleEl.textContent = recipeData.name;
+    recipeInstructionsEl.textContent = recipeData.description;
 
     return recipeElement;
 }
