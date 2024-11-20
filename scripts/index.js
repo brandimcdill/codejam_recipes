@@ -27,6 +27,7 @@ function closeModal(modal){
     modal.classList.remove('modal_opened');
     document.removeEventListener("keydown", closeModalEsc);
     modal.removeEventListener("mousedown", closeOverlay);
+    addRecipeForm.reset();
 } 
 
 function renderRecipe(recipeData, wrapper) {
