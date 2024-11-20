@@ -52,14 +52,6 @@ function fetchRecipeElement(recipeData) {
     ".card__content_footer_text"
   );
   // need to use API for recipeFooterEl
-  const recipeElement = recipeTemplate.cloneNode(true);
-  const recipeImageEl = recipeElement.querySelector(".card__image");
-  const recipeTitleEl = recipeElement.querySelector(".card__title");
-  const recipeInstructionsEl =
-    recipeElement.querySelector(".card__description");
-  const recipeHiddenContentEL = recipeElement.querySelector(
-    ".card__hidden-content"
-  );
 
   recipeImageEl.src = recipeData.url;
   recipeImageEl.alt = recipeData.name;
