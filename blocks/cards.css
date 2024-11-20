@@ -10,4 +10,5 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, 413px);
   justify-content: center;
+  gap: 20px;
 }
