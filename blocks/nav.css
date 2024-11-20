@@ -13,11 +13,12 @@
   line-height: 1.5;
 }
 .nav__link {
-  color: rgb(232, 252, 122);
+  color: #ffe65a;
   text-decoration: none;
   font-weight: 500;
+  font-family: Italiana, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 .nav__link:hover {
-  color: rgb(38, 6, 128);
+  color: rgb(49, 8, 230);
   cursor: pointer;
 }
