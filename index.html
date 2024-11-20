@@ -56,22 +56,30 @@
         </footer>
 
         <!-- Modals -->
-        <div class="modal" id="recipe_modal">
+        <div class="modal modal_opened" id="recipe_modal">
             <div class="modal__container">
-                <button type="submit" class="modal__close"></button>
+                <button type="submit" class="modal__close"> x </button>
                 <form class="modal__form" id="add-recipe-form" novalidate>
-                    <input type="text" name="title" class="modal__input modal__input_title" placeholder="Recipe Title"
-                        minlength="1" maxlength="50" required />
-                    <span class="modal__error" id="recipe-title-error"></span>
-                    <input type="url" name="url" class="modal__input modal__input_url" placeholder="Recipe Image link"
-                        required />
-                    <span class="modal__error" id="recipe-url-error"></span>
-                    <input type="text" name="description" class="modal__input modal__input_text"
-                        placeholder="Recipe Instructions" minlength="1" maxlength="500" required />
-                    <span class="modal__error" id="recipe-description-error"></span>
-                    <input type="text" name="drinks" class="modal__input modal__input_text"
-                        placeholder="Drink Suggestions" minlength="1" maxlength="200" disabled />
-                    <span class="modal__error" id="recipe-drinks-error"></span>
+                    <label for="recipe-title-input" class="modal__label"> Title
+                        <input type="text" name="title" class="modal__input modal__input_title"
+                            placeholder="Recipe Title" minlength="1" maxlength="50" required />
+                        <span class="modal__error" id="recipe-title-error"></span>
+                    </label>
+                    <label for="recipe-img-url" class="modal__label"> Recipe Image
+                        <input type="url" name="url" class="modal__input modal__input_url"
+                            placeholder="Recipe Image link" required />
+                        <span class="modal__error" id="recipe-url-error"></span>
+                    </label>
+                    <label for="recipe-instruction-input" class="modal__label"> Instructions
+                        <input type="text" name="description" class="modal__input modal__input_text"
+                            placeholder="Recipe Instructions" minlength="1" maxlength="500" required />
+                        <span class="modal__error" id="recipe-description-error"></span>
+                    </label>
+                    <label for="recipe-drink-input" class="modal__label"> Drink Suggestions
+                        <input type="text" name="drinks" class="modal__input modal__input_text"
+                            placeholder="Drink Suggestions" minlength="1" maxlength="200" disabled />
+                        <span class="modal__error" id="recipe-drinks-error"></span>
+                    </label>
                     <button class="modal__button modal__button_disabled" type="submit" disabled>
                         Add Recipe
                     </button>

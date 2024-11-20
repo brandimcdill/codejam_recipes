@@ -13,11 +13,11 @@
   line-height: 1.5;
 }
 .nav__link {
-  color: #040357;
+  color: rgb(232, 252, 122);
   text-decoration: none;
   font-weight: 500;
 }
 .nav__link:hover {
-  color: rgb(49, 8, 230);
+  color: rgb(38, 6, 128);
   cursor: pointer;
 }
