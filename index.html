@@ -1,112 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recipes & More</title>
-    <meta
-      name="author"
-      content="Brandi McDill, Emma Woelk, Robinson A. Kelley"
-    />
-    <meta
-      name="description"
-      content="TripleTen CodeJam, recipes, gallery, Thanksgiving"
-    />
+    <meta name="author" content="Brandi McDill, Emma Woelk, Robinson A. Kelley" />
+    <meta name="description" content="TripleTen CodeJam, recipes, gallery, Thanksgiving" />
     <link rel="stylesheet" href="pages/index.css" />
-  </head>
+</head>
 
-  <body>
+<body>
     <div class="page">
-      <header class="header">
-        <h1 class="header__title">Recipes & More</h1>
-        <p class="header__description">
-          Your go to place to plan your perfect Thanksgiving!
-        </p>
-        <nav class="nav">
-          <ul class="nav__links">
-            <li>
-              <a href="#apps" class="nav__link" id="appsLink">Appetizers</a>
-            </li>
-            <li>
-              <a href="#main" class="nav__link" id="mainDishLink"
-                >Main Dishes</a
-              >
-            </li>
-            <li>
-              <a href="#desserts" class="nav__link" id="dessertsLink"
-                >Desserts</a
-              >
-            </li>
-            <li>
-              <a href="#about" class="nav__link">About Us</a>
-            </li>
-          </ul>
-        </nav>
-        <button type="button" class="add_recipe-btn" id="add-recipe-btn">
-          Add Recipe +
-        </button>
-      </header>
-      <main class="content">
-        <section class="cards">
-          <ul class="cards__list" id="appetizer-list"></ul>
-          <ul
-            class="cards__list"
-            id="main-dish-list"
-            style="display: none"
-          ></ul>
-          <ul class="cards__list" id="desserts-list" style="display: none"></ul>
-        </section>
-      </main>
-      <footer id="#about" class="footer">
-        <div class="footer__columns">
-          <h2 class="footer__title">About US</h2>
-          <ul class="footer__names">
-            <li class="name">Brandi McDill</li>
-            <li class="name">Rob Kelley</li>
-            <li class="name">Emma Woelk</li>
-          </ul>
-        </div>
-        <p class="copyright">2024 &copy; Recipes</p>
-      </footer>
+        <header class="header">
+            <h1 class="header__title">Recipes & More</h1>
+            <p class="header__description">
+                Your go to place to plan your perfect Thanksgiving!
+            </p>
+            <nav class="nav">
+                <ul class="nav__links">
+                    <li>
+                        <a href="#apps" class="nav__link" id="appsLink">Appetizers</a>
+                    </li>
+                    <li>
+                        <a href="#main" class="nav__link" id="mainDishLink">Main Dishes</a>
+                    </li>
+                    <li>
+                        <a href="#desserts" class="nav__link" id="dessertsLink">Desserts</a>
+                    </li>
+                    <li>
+                        <a href="#about" class="nav__link">About Us</a>
+                    </li>
+                </ul>
+            </nav>
+            <button type="button" class="add_recipe-btn" id="add-recipe-btn">
+                Add Recipe +
+            </button>
+        </header>
+        <main class="content">
+            <section class="cards">
+                <ul class="cards__list" id="appetizer-list"></ul>
+                <ul class="cards__list" id="main-dish-list" style="display: none"></ul>
+                <ul class="cards__list" id="desserts-list" style="display: none"></ul>
+            </section>
+        </main>
+        <footer id="#about" class="footer">
+            <div class="footer__columns">
+                <h2 class="footer__title">About US</h2>
+                <ul class="footer__names">
+                    <li class="name">
+                        <a href="https://github.com/brandimcdill" class="name__link">Brandi McDill</a>
+                    </li>
+                    <li class=" name"><a href="https://github.com/Gauzix" class="name__link">Rob Kelley</a>
+                    </li>
+                    <li class="name"><a href="https://github.com/emwoe" class="name__link">Emma Woelk</a></li>
+                </ul>
+            </div>
+            <p class="copyright">2024 &copy; Recipes</p>
+        </footer>
 
-      <!-- Modals -->
-      <div class="modal" id="recipe-modal">
-        <div class="modal__container">
-          <button type="submit" class="close-btn">
-            <!--<a href=" https://www.flaticon.com/free-icons/close-button" title="close button icons">Close button
+        <!-- Modals -->
+        <div class="modal" id="recipe-modal">
+            <div class="modal__container">
+                <button type="submit" class="close-btn">
+                    <!--<a href=" https://www.flaticon.com/free-icons/close-button" title="close button icons">Close button
                         icons created by droy gambar - Flaticon</a> -->
-          </button>
-          <form class="modal__form" id="add-recipe-form" novalidate>
-            <input
-              type="text"
-              name="title"
-              class="modal__input modal__input_title"
-              placeholder="Recipe Title"
-              minlength="1"
-              maxlength="50"
-              required
-            />
-            <span class="modal__error" id="recipe-title-error"></span>
-            <input
-              type="url"
-              name="url"
-              class="modal__input modal__input_url"
-              placeholder="Recipe Image link"
-              required
-            />
-            <span class="modal__error" id="recipe-url-error"></span>
-            <textarea
-              name="description"
-              class="modal__input modal__input_text"
-              placeholder="Recipe Instructions"
-              minlength="1"
-              maxlength="6000"
-              rows="5"
-              cols="50"
-              required
-            ></textarea>
-            <span class="modal__error" id="recipe-description-error"></span>
-            <!-- 
+                </button>
+                <form class="modal__form" id="add-recipe-form" novalidate>
+                    <input type="text" name="title" class="modal__input modal__input_title" placeholder="Recipe Title"
+                        minlength="1" maxlength="50" required />
+                    <span class="modal__error" id="recipe-title-error"></span>
+                    <input type="url" name="url" class="modal__input modal__input_url" placeholder="Recipe Image link"
+                        required />
+                    <span class="modal__error" id="recipe-url-error"></span>
+                    <textarea name="description" class="modal__input modal__input_text"
+                        placeholder="Recipe Instructions" minlength="1" maxlength="6000" rows="5" cols="50"
+                        required></textarea>
+                    <span class="modal__error" id="recipe-description-error"></span>
+                    <!-- 
             <input
               type="text"
               name="drinks"
@@ -118,64 +89,43 @@
             />
             <span class="modal__error" id="recipe-drinks-error"></span>
             -->
-            <span class="modal__radios">
-              <input
-                type="radio"
-                name="menuSelect"
-                id="appetizer-radio"
-                class="modal__input modal__input_radio"
-                value="appetizers"
-              />
-              <label for="appetizer-radio" class="radio__label">Appetizer</label
-              ><br />
-              <input
-                type="radio"
-                name="menuSelect"
-                id="main-dish-radio"
-                class="modal__input modal__input_radio"
-                value="mainDishes"
-              />
-              <label for="main-dish-radio" class="radio__label">Main Dish</label
-              ><br />
-              <input
-                type="radio"
-                name="menuSelect"
-                id="dessert-radio"
-                class="modal__input modal__input_radio"
-                value="desserts"
-              />
-              <label for="dessert-radio" class="radio__label">Dessert</label
-              ><br />
-            </span>
-            <button
-              class="modal__button modal__button_disabled"
-              type="submit"
-              disabled
-            >
-              Add Recipe
-            </button>
-          </form>
+                    <span class="modal__radios">
+                        <input type="radio" name="menuSelect" id="appetizer-radio"
+                            class="modal__input modal__input_radio" value="appetizers" />
+                        <label for="appetizer-radio" class="radio__label">Appetizer</label><br />
+                        <input type="radio" name="menuSelect" id="main-dish-radio"
+                            class="modal__input modal__input_radio" value="mainDishes" />
+                        <label for="main-dish-radio" class="radio__label">Main Dish</label><br />
+                        <input type="radio" name="menuSelect" id="dessert-radio" class="modal__input modal__input_radio"
+                            value="desserts" />
+                        <label for="dessert-radio" class="radio__label">Dessert</label><br />
+                    </span>
+                    <button class="modal__button modal__button_disabled" type="submit" disabled>
+                        Add Recipe
+                    </button>
+                </form>
+            </div>
         </div>
-      </div>
     </div>
 
     <!-- Templates -->
     <template class="modal" id="recipe-template">
-      <li class="card">
-        <div class="card__content">
-          <img src="" alt="" class="card__image" />
-          <h2 class="card__title"></h2>
-          <span class="card__hidden-content">
-            <p class="card__description"></p>
-            <div class="card__content_footer">
-              <h3 class="card__content_footer_title">Drink Suggestions</h3>
-              <p class="card__content_footer_text"></p>
+        <li class="card">
+            <div class="card__content">
+                <img src="" alt="" class="card__image" />
+                <h2 class="card__title"></h2>
+                <span class="card__hidden-content">
+                    <p class="card__description"></p>
+                    <div class="card__content_footer">
+                        <h3 class="card__content_footer_title">Drink Suggestions</h3>
+                        <p class="card__content_footer_text"></p>
+                    </div>
+                </span>
             </div>
-          </span>
-        </div>
-      </li>
+        </li>
     </template>
     <script src="./scripts/index.js"></script>
     <script src="./scripts/validation.js"></script>
-  </body>
+</body>
+
 </html>
