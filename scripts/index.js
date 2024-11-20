@@ -58,6 +58,7 @@ function handleAddRecipeSubmit (evt){
         url: recipeImageInput.value,
         description: recipeInstructionsInput.value
     }
+    // need to change the function from the point below so it will place card in right list
     renderRecipe(newRecipe, recipeListEl)
     evt.target.reset();
     closeModal(addRecipeModal);
@@ -100,16 +101,12 @@ modals.forEach((modal) => {
 /*                              Initialize Recipes                              */
 /* -------------------------------------------------------------------------- */
 
-//need to add some default recipes in an array to initialize
-function intializeRecipes(array) { 
+function intializeRecipes(array, wrapper) { 
     array.forEach((recipeData) => {
-        renderCard(recipeData, recipeListEl);
+        renderRecipe(recipeData, wrapper);
     });
 }
-
-intializeRecipes(appetizers);
-intializeRecipes(mainDishes);
-intializeRecipes(desserts);
+// callback of this function are at the bottom of the file so they may use the arrays below
 
 
 /* -------------------------------------------------------------------------- */
@@ -154,9 +151,39 @@ const appetizers =[
 `
     },
     {
-        name: '',
+        name: 'Brushetta',
         url: '',
-        description: ''
+        description: `
+        Ingredients
+            Tomatoes
+            1/4 c. extra-virgin olive oil
+            2 cloves garlic, thinly sliced
+            4 large tomatoes, finely chopped
+            Kosher salt 
+            1/4 c. thinly sliced fresh basil
+            2 Tbsp. balsamic vinegar 
+            Pinch of crushed red pepper flakes
+            Bread & Assembly
+            1 large baguette, sliced 1/4" thick on the bias
+            Extra-virgin olive oil, for brushing
+            2 cloves garlic, halved
+
+        Directions
+            Tomatoes
+            Step 1
+            In a medium skillet over medium-low heat, heat oil. Add garlic and cook, stirring occasionally, until lightly golden, 2 to 4 minutes. Let cool.
+            Step 2
+            Meanwhile, set a large strainer or colander over a bowl. Add tomatoes and toss with 1/2 teaspoon salt.
+            Step 3
+            Let sit 5 minutes. Transfer tomatoes to a large bowl. Add basil, vinegar, crushed red pepper flakes, and 1/2 tsp. salt and toss to combine. Add garlic and oil from skillet and toss again to combine. Let marinate at least 30 minutes or up to 2 days
+            Bread & Assembly
+            Step 1
+            Preheat oven to 400°. Brush bread on both sides with oil and arrange on large baking sheet. 
+            Step 2
+            Toast bread, turning halfway through, until dried and golden brown, 10 to 15 minutes. Let cool 5 minutes, then rub one side of bread with halved garlic cloves.
+            Step 3
+            Arrange bread on a platter and spoon tomatoes on garlic-rubbed side of bread just before serving 
+        `
     },
     {
         name: '',
@@ -277,4 +304,9 @@ const recipes =[
         url: '',
         description: ''
     }
-]
+];
+
+
+intializeRecipes(appetizers, appetizerListEl);
+intializeRecipes(mainDishes, mainDishesListEl);
+intializeRecipes(desserts, dessertsListEl);
