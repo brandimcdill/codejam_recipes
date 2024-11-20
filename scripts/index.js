@@ -55,11 +55,6 @@ function fetchRecipeElement(recipeData) {
   recipeTitleEl.textContent = recipeData.name;
   recipeInstructionsEl.textContent = recipeData.description;
 
-  recipeImageEl.src = recipeData.url;
-  recipeImageEl.alt = recipeData.name;
-  recipeTitleEl.textContent = recipeData.name;
-  recipeInstructionsEl.textContent = recipeData.description;
-
   return recipeElement;
 }
 
